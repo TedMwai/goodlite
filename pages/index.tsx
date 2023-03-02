@@ -1,10 +1,12 @@
-import Head from 'next/head'
-import { Montserrat } from 'next/font/google'
+import Head from "next/head";
+import { Montserrat } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export default function Home() {
   return (
@@ -15,11 +17,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={montserrat.className}>
-        <div >
-          <h1 className='text-xl text-center'>Hello From NeXt</h1>
-        </div>
-      </main>
+      <div>
+        <Navbar />
+        <main className={montserrat.className}>
+          <div></div>
+        </main>
+        <Footer />
+      </div>
     </>
-  )
+  );
 }

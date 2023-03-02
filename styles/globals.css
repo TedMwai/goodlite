@@ -1,6 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .border-b-expand {
+    @apply relative;
+  }
+  
+  .border-b-expand::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-full h-px bg-white;
+    
+    transform-origin: left;
+    transform: scaleX(0);
+    
+    transition: transform .3s ease-in-out;
+  }
+  
+  .border-b-expand:hover::after {
+      transform: scaleX(1);
+  }
+  .border-a-expand {
+    @apply relative;
+  }
+  
+  .border-a-expand::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-full h-px bg-black;
+    
+    transform-origin: left;
+    transform: scaleX(0);
+    
+    transition: transform .3s ease-in-out;
+  }
+  
+  .border-a-expand:hover::after {
+      transform: scaleX(1);
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
