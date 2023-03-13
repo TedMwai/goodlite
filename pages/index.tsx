@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Montserrat } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,7 +21,335 @@ export default function Home() {
       <div>
         <Navbar />
         <main className={montserrat.className}>
-          <div></div>
+          <div>
+            <section className="bg-white">
+              <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                  <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
+                    <div className="max-w-xl md:max-w-full text-center lg:text-left">
+                      <div>
+                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                          I am a short heading
+                        </p>
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                          Use this paragraph to share information about your
+                          company or products. Make it engaging and interesting,
+                          and showcase your brand&apos;s personality. Thanks for
+                          visiting our website!
+                        </p>
+                      </div>
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                        Read More
+                      </button>
+                      <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
+                        <div className="flex-shrink-0">
+                          <div className="max-w-full flex gap-16 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="order-first lg:mt-0">
+                    <div>
+                      <Image
+                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                        alt="hero"
+                        height={1000}
+                        width={1000}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section className="bg-white">
+              <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                  <div className="order-first lg:mt-0">
+                    <div>
+                      <Image
+                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                        alt="hero"
+                        height={1000}
+                        width={1000}
+                      />
+                    </div>
+                  </div>
+                  <div className="gap-12 lg:inline-flex md:order-first">
+                    <div className="max-w-xl md:max-w-full text-center lg:text-left">
+                      <div>
+                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                          I am a short heading
+                        </p>
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                          Use this paragraph to share information about your
+                          company or products. Make it engaging and interesting,
+                          and showcase your brand&apos;s personality. Thanks for
+                          visiting our website!
+                        </p>
+                      </div>
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                        Read More
+                      </button>
+                      <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
+                        <div className="flex-shrink-0">
+                          <div className="max-w-full flex gap-16 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section className="bg-white">
+              <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                  <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
+                    <div className="max-w-xl md:max-w-full text-center lg:text-left">
+                      <div>
+                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                          I am a short heading
+                        </p>
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                          Use this paragraph to share information about your
+                          company or products. Make it engaging and interesting,
+                          and showcase your brand&apos;s personality. Thanks for
+                          visiting our website!
+                        </p>
+                      </div>
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                        Read More
+                      </button>
+                      <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
+                        <div className="flex-shrink-0">
+                          <div className="max-w-full flex gap-16 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="cursor-pointer">
+                              <div className="relative aspect-square overflow-hidden">
+                                <Image
+                                  src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                                  alt="hero"
+                                  fill={true}
+                                  className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                />
+                              </div>
+                              <div>
+                                <h1 className="hover:underline text-base py-2">
+                                  Product 1
+                                </h1>
+                                <div className="flex gap-4">
+                                  <h3 className="text-gray-500 line-through">
+                                    Ksh 1,300.00
+                                  </h3>
+                                  <h3 className="text-gray-500">
+                                    Ksh 1,100.00
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="order-first lg:mt-0">
+                    <div>
+                      <Image
+                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
+                        alt="hero"
+                        height={1000}
+                        width={1000}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </main>
         <Footer />
       </div>
