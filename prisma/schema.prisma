@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  id                 String  @id
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  user               user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_fkey")
+}
+
+model cart {
+  id        String    @id
+  userId    String    @unique(map: "Cart_userId_key")
+  products  Json
+  createdAt DateTime? @db.DateTime(0)
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Cart_userId_fkey")
+}
+
+model category {
+  id            Int        @id @default(autoincrement())
+  name          String     @db.VarChar(45)
+  description   String     @db.VarChar(100)
+  category_slug String     @map("category-slug") @db.VarChar(80)
+  createdAt     DateTime?  @db.DateTime(0)
+  products      products[]
+}
+
+model orders {
+  id              String    @id
+  userId          String
+  products        Json
+  payment_details Json
+  createdAt       DateTime? @db.DateTime(0)
+  user            user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Orders_userId_fkey")
+
+  @@index([userId], map: "Orders_userId_fkey")
+}
+
+model products {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(45)
+  description     String
+  price           Int
+  product_slug    String    @unique(map: "product-slug") @db.VarChar(100)
+  images          Json
+  quantity        Int
+  createdAt       DateTime? @db.DateTime(0)
+  category_id     Int
+  discountedPrice Int?
+  category        category  @relation(fields: [category_id], references: [id], map: "Products_category_id_fkey")
+
+  @@index([category_id], map: "Products_category_id_fkey")
+}
+
+model refunds {
+  id              String    @id
+  userId          String
+  products        Json
+  payment_details Json
+  createdAt       DateTime? @db.DateTime(0)
+  user            user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Refunds_userId_fkey")
+
+  @@index([userId], map: "Refunds_userId_fkey")
+}
+
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
+  userId       String
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model user {
+  id            String        @id
+  name          String?
+  email         String?       @unique(map: "User_email_key")
+  emailVerified DateTime?
+  image         String?
+  account       account[]
+  cart          cart?
+  orders        orders[]
+  refunds       refunds[]
+  session       session[]
+  useraddress   useraddress[]
+  wishlist      wishlist?
+}
+
+model useraddress {
+  id        String    @id
+  userId    String
+  address   String
+  city      String
+  state     String
+  mobile    String
+  createdAt DateTime? @db.DateTime(0)
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Useraddress_userId_fkey")
+
+  @@index([userId], map: "Useraddress_userId_fkey")
+}
+
+model verificationtoken {
+  identifier String
+  token      String   @unique(map: "VerificationToken_token_key")
+  expires    DateTime
+
+  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model wishlist {
+  id        String    @id
+  userId    String    @unique(map: "Wishlist_userId_key")
+  products  Json
+  createdAt DateTime? @db.DateTime(0)
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Wishlist_userId_fkey")
+}
