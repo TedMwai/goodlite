@@ -1,6 +1,8 @@
 import { Montserrat } from "next/font/google";
 import { FiMinus, FiX, FiPlus } from "react-icons/fi";
 import Image from "next/image";
+import { useShop } from "@/context/context";
+import { useRouter } from "next/router";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -8,10 +10,18 @@ const montserrat = Montserrat({
 });
 
 const Cart = () => {
+  const { setCartOpen } = useShop();
+  const router = useRouter();
   return (
     <div className={`${montserrat.className}`}>
-      <div className="fixed top-0 h-screen w-full bg-[#c0c0c099] z-10 flex justify-end">
-        <div className="w-full md:w-2/3 lg:w-6/12 xl:w-[35%] bg-white p-8 relative">
+      <div
+        className="fixed top-0 h-screen w-full bg-[#c0c0c099] z-10 flex justify-end"
+        onClick={() => setCartOpen(false)}
+      >
+        <div
+          className="w-full md:w-[60%] lg:w-6/12 xl:w-[32%] bg-white p-8 relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="flex items-center justify-between border-b-2 pb-2 border-black">
             <div className="relative flex gap-2">
               <h1 className="text-xl">Cart</h1>
@@ -22,12 +32,12 @@ const Cart = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div onClick={() => setCartOpen(false)}>
               <FiX className="text-2xl cursor-pointer" />
             </div>
           </div>
-          <div className="my-8 flex flex-col overflow-hidden h-full">
-            <div className="overflow-y-scroll scrollbar h-full">
+          <div className="my-8 flex flex-col overflow-hidden h-5/6">
+            <div className="overflow-y-scroll scrollbar h-5/6">
               <div className="flex gap-4 mb-8 ">
                 <div className="relative w-16 h-16 md:w-24 md:h-24 aspect-square">
                   <Image
@@ -49,7 +59,7 @@ const Cart = () => {
                     />
                   </div>
                   <div className="flex justify-between mt-4">
-                    <div className="w-24 md:w-36 flex gap-4 items-center">
+                    <div className="w-24 md:w-28 flex gap-4 items-center">
                       <FiMinus className="cursor-pointer" />
                       <input
                         type="number"
@@ -97,12 +107,18 @@ const Cart = () => {
                 </div>
               </div>
             </div>
-            <div className="mb-8">
+            <div>
               <div className="flex justify-between mb-4">
                 <h1 className="text-lg">Subtotal:</h1>
                 <h1 className="text-lg">Ksh. 20,000.00</h1>
               </div>
-              <button className="bg-black text-white py-3 px-4 text-lg mb-4 w-full hover:bg-gray-800">
+              <button
+                className="bg-black text-white py-3 px-4 text-lg mb-4 w-full hover:bg-gray-800"
+                onClick={() => {
+                  router.push("/checkout");
+                  setCartOpen(false);
+                }}
+              >
                 Checkout
               </button>
             </div>

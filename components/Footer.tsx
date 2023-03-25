@@ -13,13 +13,10 @@ const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
 });
 
-// TODO: Rename the links
-// TODO: Make the footer toggleable on mobile
-
 const Footer: FC = () => {
   return (
     <footer className={`${montserrat.className} bg-black`}>
-      <div className="px-5 py-12 mx-auto max-w-7xl lg:py-16 md:px-12 lg:px-20">
+      <div className="px-5 py-12 mx-auto lg:py-16 md:px-12 lg:px-20">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="xl:col-span-1">
             <Link
@@ -34,91 +31,91 @@ const Footer: FC = () => {
               >
                 <path
                   d="M166.524 51.4683L116.367 101.625L65.5235 51.4683L116.367 0.62434L166.524 51.4683ZM231.11 116.054L180.953 166.898L130.796 116.054L180.953 65.8969L231.11 116.054ZM101.939 116.054L51.0948 166.898L0.250934 116.054L51.0948 65.8969L101.939 116.054ZM166.524 181.326L116.367 231.483L65.5235 181.326L116.367 130.482L166.524 181.326Z"
-                  fill="#0c0c0c"
+                  fill="#fff"
                 ></path>
               </svg>
             </Link>
-            <p className="w-1/2 mt-2 text-sm text-gray-100">
-              Unwrapped your mind
-            </p>
+            <h1 className="w-1/2 mt-2 text-gray-100 text-xl font-bold">
+              GOODLITE
+            </h1>
           </div>
           <div className="grid grid-cols-2 gap-8 mt-12 xl:mt-0 xl:col-span-2">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="font-semibold leading-6 uppercase text-white">
-                  Solutions
+                  Resources
                 </h3>
                 <ul role="list" className="mt-4 space-y-3">
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/contact"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Marketing
-                    </a>
+                      Contact
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Analytics
-                    </a>
+                      Shipping Policy
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/privacy-policy"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Commerce
-                    </a>
+                      Privacy Policy
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/accessibility"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Insights
-                    </a>
+                      Accessibility
+                    </Link>
                   </li>
                 </ul>
               </div>
               <div className="mt-12 md:mt-0">
                 <h3 className="font-semibold leading-6 uppercase text-white">
-                  Support
+                  Shop
                 </h3>
                 <ul role="list" className="mt-4 space-y-4">
                   <li>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Pricing
-                    </a>
+                      Streetlights
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Alpine.js
-                    </a>
+                      Floodlights
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Guides
-                    </a>
+                      Garden Lamps
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      API Status
-                    </a>
+                      Shop All
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -130,8 +127,7 @@ const Footer: FC = () => {
                     Subscribe to our newsletter
                   </h3>
                   <p className="mt-4 text-sm font-light text-gray-100 lg:ml-auto">
-                    The latest news, articles, and resources, sent to your inbox
-                    weekly.
+                    Sign Up for Special Offers!
                   </p>
                   <div className="inline-flex items-center gap-2 mt-12 list-none lg:ml-auto">
                     <form>

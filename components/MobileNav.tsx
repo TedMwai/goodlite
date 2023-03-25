@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import { FiX, FiSearch } from "react-icons/fi";
 import { IoAddOutline as Add } from "react-icons/io5";
+import { useShop } from "@/context/context";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -9,12 +10,22 @@ const montserrat = Montserrat({
 });
 
 const MobileNav = () => {
+  const { setSideNav } = useShop();
   return (
     <div className={`${montserrat.className}`}>
-      <div className="fixed top-0 h-screen w-full bg-[#c0c0c099] z-10 flex justify-start">
-        <div className="w-full md:w-2/3 lg:w-6/12 xl:w-[35%] bg-white px-6 relative">
+      <div
+        className="fixed top-0 h-screen w-full bg-[#c0c0c099] z-10 flex justify-start"
+        onClick={() => setSideNav(false)}
+      >
+        <div
+          className="w-full md:w-[55%] lg:w-6/12 xl:w-[35%] bg-white px-6 relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="mt-4 flex items-center justify-between">
-            <FiX className="text-2xl cursor-pointer" />
+            <FiX
+              className="text-2xl cursor-pointer"
+              onClick={() => setSideNav(false)}
+            />
             <div className="flex gap-2 items-center border-b-2">
               <input
                 type="search"

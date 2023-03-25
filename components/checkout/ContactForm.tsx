@@ -6,50 +6,50 @@ const ContactForm: FC = () => {
       <h1 className="text-xl mb-4">Shipping Address</h1>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         <div className="relative">
-          <input type="text" className="border-2 w-full p-4 input-focus" />
+          <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
           <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
             First Name *
           </label>
         </div>
         <div className="relative mt-6 md:mt-0">
-          <input type="text" className="border-2 w-full p-4 input-focus" />
+          <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
           <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
             Last Name *
           </label>
         </div>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Street Address *
         </label>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Apartment, suite, unit, etc. *
         </label>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Town / City *
         </label>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Postcode / ZIP *
         </label>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Phone *
         </label>
       </div>
       <div className="relative mt-6">
-        <input type="text" className="border-2 w-full p-4 input-focus" />
+        <input type="text" className="border-2 w-full p-4 input-focus" placeholder=" " />
         <label className="absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out">
           Email Address *
         </label>
