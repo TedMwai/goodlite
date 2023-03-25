@@ -22,65 +22,56 @@ model account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-  user               user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+  user               users   @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
 
   @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
   @@index([userId], map: "Account_userId_fkey")
 }
 
 model cart {
-  id        String    @id
-  userId    String    @unique(map: "Cart_userId_key")
-  products  Json
-  createdAt DateTime? @db.DateTime(0)
-  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Cart_userId_fkey")
+  id        String   @id
+  userId    String
+  productId Int
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  products  products @relation(fields: [productId], references: [id], map: "Cart_productId_fkey")
+  user      users    @relation(fields: [userId], references: [id], map: "Cart_userId_fkey")
+
+  @@index([productId], map: "Cart_productId_fkey")
+  @@index([userId], map: "Cart_userId_fkey")
 }
 
 model category {
-  id            Int        @id @default(autoincrement())
-  name          String     @db.VarChar(45)
-  description   String     @db.VarChar(100)
-  category_slug String     @map("category-slug") @db.VarChar(80)
-  createdAt     DateTime?  @db.DateTime(0)
-  products      products[]
-}
-
-model orders {
-  id              String    @id
-  userId          String
-  products        Json
-  payment_details Json
-  createdAt       DateTime? @db.DateTime(0)
-  user            user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Orders_userId_fkey")
-
-  @@index([userId], map: "Orders_userId_fkey")
+  id           Int        @id @default(autoincrement())
+  name         String
+  description  String     @db.VarChar(500)
+  categorySlug String     @unique(map: "Category_categorySlug_key")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime
+  products     products[]
 }
 
 model products {
-  id              Int       @id @default(autoincrement())
-  name            String    @db.VarChar(45)
-  description     String
-  price           Int
-  product_slug    String    @unique(map: "product-slug") @db.VarChar(100)
-  images          Json
-  quantity        Int
-  createdAt       DateTime? @db.DateTime(0)
-  category_id     Int
-  discountedPrice Int?
-  category        category  @relation(fields: [category_id], references: [id], map: "Products_category_id_fkey")
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String       @db.VarChar(500)
+  categoryId  Int
+  quantity    Int
+  price       Float
+  discountId  Int?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime
+  coverImage  String
+  productSlug String       @unique(map: "Products_productSlug_key") @db.VarChar(150)
+  cart        cart[]
+  images      images[]
+  orderitems  orderitems[]
+  category    category     @relation(fields: [categoryId], references: [id], map: "Products_categoryId_fkey")
+  discount    discount?    @relation(fields: [discountId], references: [id], map: "Products_discountId_fkey")
 
-  @@index([category_id], map: "Products_category_id_fkey")
-}
-
-model refunds {
-  id              String    @id
-  userId          String
-  products        Json
-  payment_details Json
-  createdAt       DateTime? @db.DateTime(0)
-  user            user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Refunds_userId_fkey")
-
-  @@index([userId], map: "Refunds_userId_fkey")
+  @@index([categoryId], map: "Products_categoryId_fkey")
+  @@index([discountId], map: "Products_discountId_fkey")
 }
 
 model session {
@@ -88,37 +79,9 @@ model session {
   sessionToken String   @unique(map: "Session_sessionToken_key")
   userId       String
   expires      DateTime
-  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
+  user         users    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
 
   @@index([userId], map: "Session_userId_fkey")
-}
-
-model user {
-  id            String        @id
-  name          String?
-  email         String?       @unique(map: "User_email_key")
-  emailVerified DateTime?
-  image         String?
-  account       account[]
-  cart          cart?
-  orders        orders[]
-  refunds       refunds[]
-  session       session[]
-  useraddress   useraddress[]
-  wishlist      wishlist?
-}
-
-model useraddress {
-  id        String    @id
-  userId    String
-  address   String
-  city      String
-  state     String
-  mobile    String
-  createdAt DateTime? @db.DateTime(0)
-  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Useraddress_userId_fkey")
-
-  @@index([userId], map: "Useraddress_userId_fkey")
 }
 
 model verificationtoken {
@@ -129,10 +92,81 @@ model verificationtoken {
   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
 }
 
-model wishlist {
-  id        String    @id
-  userId    String    @unique(map: "Wishlist_userId_key")
-  products  Json
-  createdAt DateTime? @db.DateTime(0)
-  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Wishlist_userId_fkey")
+model addresses {
+  id         String   @id
+  userId     String
+  address    String
+  city       String
+  postalCode String
+  phone      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  users      users    @relation(fields: [userId], references: [id], map: "Addresses_userId_fkey")
+
+  @@index([userId], map: "Addresses_userId_fkey")
+}
+
+model discount {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  discount    Float
+  active      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  products    products[]
+}
+
+model images {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  products  products @relation(fields: [productId], references: [id], map: "Images_productId_fkey")
+
+  @@index([productId], map: "Images_productId_fkey")
+}
+
+model orderdetails {
+  id         String       @id
+  userId     String
+  total      Float
+  paymentId  String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime
+  users      users        @relation(fields: [userId], references: [id], map: "OrderDetails_userId_fkey")
+  orderitems orderitems[]
+
+  @@index([userId], map: "OrderDetails_userId_fkey")
+}
+
+model orderitems {
+  id           String       @id
+  orderId      String
+  productId    Int
+  quantity     Int
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime
+  orderdetails orderdetails @relation(fields: [orderId], references: [id], map: "OrderItems_orderId_fkey")
+  products     products     @relation(fields: [productId], references: [id], map: "OrderItems_productId_fkey")
+
+  @@index([orderId], map: "OrderItems_orderId_fkey")
+  @@index([productId], map: "OrderItems_productId_fkey")
+}
+
+model users {
+  id            String         @id
+  name          String?
+  email         String?        @unique(map: "Users_email_key")
+  emailVerified DateTime?
+  image         String?
+  role          String         @default("user")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime
+  account       account[]
+  addresses     addresses[]
+  cart          cart[]
+  orderdetails  orderdetails[]
+  session       session[]
 }

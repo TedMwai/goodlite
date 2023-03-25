@@ -3,13 +3,28 @@ import Footer from "@/components/Footer";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import { IoHeartOutline as Heart, IoAddOutline as Add } from "react-icons/io5";
+import prisma from "@/lib/prisma";
+import { GetStaticProps, GetStaticPaths } from "next";
+import { Product } from "@/types/types";
+import { ParsedUrlQuery } from "querystring";
+import HtmlContent from "@/components/Description";
+import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
+
+interface Props {
+  product: Product;
+  similarProducts: Product[];
+}
+interface Params extends ParsedUrlQuery {
+  slug: string | string[];
+}
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const Item = () => {
+const Item = ({ product, similarProducts }: Props) => {
   return (
     <div className={montserrat.className}>
       <Navbar />
@@ -20,28 +35,20 @@ const Item = () => {
               <div className="max-w-xl md:max-w-full lg:max-w-xl text-left">
                 <div>
                   <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
-                    Solar Torch
+                    {product.name}
                   </p>
                   <div className="flex gap-12">
                     <p className="mt-4 text-base tracking-tight text-gray-600 line-through">
-                      Ksh 3,500
+                      Ksh {product.price}
                     </p>
-                    <p className="mt-4 text-base tracking-tight text-gray-600">
-                      Ksh 3,000
-                    </p>
+                    {product.discountId &&
+                      product?.discount?.discount !== null && (
+                        <p className="mt-4 text-base tracking-tight text-gray-600">
+                          Ksh {product?.discount?.discount}
+                        </p>
+                      )}
                   </div>
-                  <p className="mt-4 text-base tracking-tight text-gray-600">
-                    Use this paragraph to share information about your company
-                    or products. Make it engaging and interesting, and showcase
-                    your brand&apos;s personality. Thanks for visiting our
-                    website!
-                  </p>
-                  <ul className="mt-4 text-base tracking-tight text-gray-600">
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                  </ul>
+                  <HtmlContent html={product.description} />
                 </div>
                 <div className="flex flex-col md:flex-row md:gap-4">
                   <div className="flex justify-center py-4 gap-6 border-2 mt-4 w-full md:w-auto md:basis-1/4">
@@ -102,36 +109,23 @@ const Item = () => {
             </div>
             <div className="order-first block w-full mt-12 aspect-square lg:mt-0 lg:order-first">
               <Image
-                src="https://d33wubrfki0l68.cloudfront.net/ded521c426f480d4e473a11836c6ab8e7e948c84/95877/images/placeholders/square3.svg"
+                src={product.coverImage}
                 alt="hero"
-                height={1000}
-                width={1000}
+                height={800}
+                width={800}
               />
               <div className="hidden md:mt-8 md:flex md:items-center md:gap-8 md:justify-center">
-                <div>
-                  <Image
-                    src="https://d33wubrfki0l68.cloudfront.net/ded521c426f480d4e473a11836c6ab8e7e948c84/95877/images/placeholders/square3.svg"
-                    alt="hero"
-                    height={100}
-                    width={100}
-                  />
-                </div>
-                <div>
-                  <Image
-                    src="https://d33wubrfki0l68.cloudfront.net/ded521c426f480d4e473a11836c6ab8e7e948c84/95877/images/placeholders/square3.svg"
-                    alt="hero"
-                    height={100}
-                    width={100}
-                  />
-                </div>
-                <div>
-                  <Image
-                    src="https://d33wubrfki0l68.cloudfront.net/ded521c426f480d4e473a11836c6ab8e7e948c84/95877/images/placeholders/square3.svg"
-                    alt="hero"
-                    height={100}
-                    width={100}
-                  />
-                </div>
+                {product.images.length > 0 &&
+                  product.images.map((image) => (
+                    <div key={uuidv4()}>
+                      <Image
+                        src={image.image}
+                        alt="image"
+                        height={100}
+                        width={100}
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -140,90 +134,42 @@ const Item = () => {
             <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
               <div className="flex-shrink-0">
                 <div className="max-w-full flex gap-16 md:grid md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-8">
-                  <div className="cursor-pointer">
-                    <div className="relative aspect-square overflow-hidden">
-                      <Image
-                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
-                        alt="hero"
-                        fill={true}
-                        className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                      />
-                    </div>
-                    <div>
-                      <h1 className="hover:underline text-base py-2">
-                        Product 1
-                      </h1>
-                      <div className="flex gap-4">
-                        <h3 className="text-gray-500 line-through">
-                          Ksh 1,300.00
-                        </h3>
-                        <h3 className="text-gray-500">Ksh 1,100.00</h3>
+                  {similarProducts.length > 0 &&
+                    similarProducts.map((product) => (
+                      <div className="cursor-pointer" key={uuidv4()}>
+                        <div className="relative aspect-square overflow-hidden">
+                          <Image
+                            src={product.coverImage}
+                            alt="hero"
+                            fill={true}
+                            className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                          />
+                        </div>
+                        <div>
+                          <Link
+                            className="w-fit border-a-expand text-base pt-2 pb-1"
+                            href={`/product/${product.productSlug}`}
+                          >
+                            {product.name}
+                          </Link>
+                          <div className="flex gap-4 mt-2">
+                            <h3
+                              className={`text-gray-500 ${
+                                product.discountId && "line-through"
+                              }`}
+                            >
+                              Ksh {product.price}
+                            </h3>
+                            {product.discountId &&
+                              product?.discount?.discount !== null && (
+                                <h3 className="text-gray-500">
+                                  Ksh {product?.discount?.discount}
+                                </h3>
+                              )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="cursor-pointer">
-                    <div className="relative aspect-square overflow-hidden">
-                      <Image
-                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
-                        alt="hero"
-                        fill={true}
-                        className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                      />
-                    </div>
-                    <div>
-                      <h1 className="hover:underline text-base py-2">
-                        Product 1
-                      </h1>
-                      <div className="flex gap-4">
-                        <h3 className="text-gray-500 line-through">
-                          Ksh 1,300.00
-                        </h3>
-                        <h3 className="text-gray-500">Ksh 1,100.00</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cursor-pointer">
-                    <div className="relative aspect-square overflow-hidden">
-                      <Image
-                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
-                        alt="hero"
-                        fill={true}
-                        className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                      />
-                    </div>
-                    <div>
-                      <h1 className="hover:underline text-base py-2">
-                        Product 1
-                      </h1>
-                      <div className="flex gap-4">
-                        <h3 className="text-gray-500 line-through">
-                          Ksh 1,300.00
-                        </h3>
-                        <h3 className="text-gray-500">Ksh 1,100.00</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cursor-pointer">
-                    <div className="relative aspect-square overflow-hidden">
-                      <Image
-                        src="https://d33wubrfki0l68.cloudfront.net/6163c5a4083dab2763aa0f2aa9e6bded23630eb7/935d6/images/placeholders/square2.svg"
-                        alt="hero"
-                        fill={true}
-                        className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                      />
-                    </div>
-                    <div>
-                      <h1 className="hover:underline text-base py-2">
-                        Product 1
-                      </h1>
-                      <div className="flex gap-4">
-                        <h3 className="text-gray-500 line-through">
-                          Ksh 1,300.00
-                        </h3>
-                        <h3 className="text-gray-500">Ksh 1,100.00</h3>
-                      </div>
-                    </div>
-                  </div>
+                    ))}
                 </div>
               </div>
             </div>
@@ -236,3 +182,100 @@ const Item = () => {
 };
 
 export default Item;
+
+export const getStaticProps: GetStaticProps<Props, Params> = async (
+  context
+) => {
+  const { slug } = context.params!;
+  const product = await prisma.products.findUnique({
+    where: {
+      productSlug: slug as string,
+    },
+    include: {
+      images: {
+        select: {
+          image: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      discount: {
+        select: {
+          discount: true,
+        },
+      },
+    },
+  });
+  const similarProducts = await prisma.products.findMany({
+    where: {
+      categoryId: product?.categoryId,
+      id: {
+        not: product?.id,
+      },
+    },
+    include: {
+      images: {
+        select: {
+          image: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      discount: {
+        select: {
+          discount: true,
+        },
+      },
+    },
+    take: 4,
+  });
+  return {
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      similarProducts: JSON.parse(JSON.stringify(similarProducts)),
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get all the products
+  const products = await prisma.products.findMany({
+    include: {
+      images: {
+        select: {
+          image: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      discount: {
+        select: {
+          discount: true,
+        },
+      },
+    },
+  });
+  // Map the category IDs to their corresponding paths
+  const paths = products.map((product) => ({
+    params: {
+      slug: product.productSlug,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: "blocking", // Set fallback to 'blocking' for ISR
+  };
+};

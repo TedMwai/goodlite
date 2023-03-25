@@ -41,6 +41,13 @@
   .input-focus:focus + label {
     @apply -top-4 left-4 text-sm;
   }
+
+  .custom-list {
+    @apply mt-4 text-base tracking-tight text-gray-600;
+  }
+  .custom-list li {
+    @apply ml-4 list-disc;
+  }
 }
 
 @layer base {

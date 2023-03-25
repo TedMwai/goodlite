@@ -15,7 +15,7 @@ const Navbar: FC = () => {
 
   return (
     <div
-      className={`${montserrat.className} w-full mx-auto bg-white border-b 2xl:max-w-7xl`}
+      className={`${montserrat.className} w-full mx-auto bg-white border-b`}
     >
       <div className="relative flex flex-col w-full p-5 mx-auto bg-white md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div className="flex flex-row items-center justify-between lg:justify-start">
