@@ -1,11 +1,14 @@
-import Head from "next/head";
-import { Montserrat } from "next/font/google";
-import Navbar from "@/components/Navbar";
+import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
-import Image from "next/image";
+import MobileNav from "@/components/MobileNav";
+import Navbar from "@/components/Navbar";
+import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
-import { GetStaticProps } from "next";
 import { Products } from "@/types/types";
+import { GetStaticProps } from "next";
+import { Montserrat } from "next/font/google";
+import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -24,6 +27,7 @@ export default function Home({
   nikeProducts,
   jordanProducts,
 }: Props) {
+  const { cartOpen, sideNav } = useShop();
   return (
     <>
       <Head>
@@ -35,6 +39,8 @@ export default function Home({
       <div>
         <Navbar />
         <main className={montserrat.className}>
+          {cartOpen && <Cart />}
+          {sideNav && <MobileNav />}
           <div>
             <section className="bg-white">
               <div className="px-5 py-12 mx-auto md:px-12 lg:px-16">
@@ -57,10 +63,10 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {adidasProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 aspect-square overflow-hidden">
+                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
                                   <Image
                                     src={product.coverImage}
                                     alt="hero"
@@ -68,7 +74,7 @@ export default function Home({
                                     className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
                                   />
                                 </div>
-                                <div>
+                                <div className="text-left">
                                   <Link
                                     className="w-fit border-a-expand text-base pt-2 pb-1"
                                     href={`/product/${product.productSlug}`}
@@ -142,10 +148,10 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {nikeProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 aspect-square overflow-hidden">
+                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
                                   <Image
                                     src={product.coverImage}
                                     alt="hero"
@@ -153,7 +159,7 @@ export default function Home({
                                     className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
                                   />
                                 </div>
-                                <div>
+                                <div className="text-left">
                                   <Link
                                     className="w-fit border-a-expand text-base pt-2 pb-1"
                                     href={`/product/${product.productSlug}`}
@@ -207,10 +213,10 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-3 lg:gap-8">
+                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {jordanProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 aspect-square overflow-hidden">
+                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
                                   <Image
                                     src={product.coverImage}
                                     alt="hero"
@@ -218,7 +224,7 @@ export default function Home({
                                     className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
                                   />
                                 </div>
-                                <div>
+                                <div className="text-left">
                                   <Link
                                     className="w-fit border-a-expand text-base pt-2 pb-1"
                                     href={`/product/${product.productSlug}`}

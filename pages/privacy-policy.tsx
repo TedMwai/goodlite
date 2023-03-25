@@ -1,7 +1,10 @@
-import Head from "next/head";
-import { Montserrat } from "next/font/google";
-import Navbar from "@/components/Navbar";
+import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
+import MobileNav from "@/components/MobileNav";
+import Navbar from "@/components/Navbar";
+import { useShop } from "@/context/context";
+import { Montserrat } from "next/font/google";
+import Head from "next/head";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -9,6 +12,7 @@ const montserrat = Montserrat({
 });
 
 const Policy = () => {
+  const { cartOpen, sideNav } = useShop();
   return (
     <>
       <Head>
@@ -18,6 +22,8 @@ const Policy = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      {cartOpen && <Cart />}
+      {sideNav && <MobileNav />}
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
       >
@@ -85,9 +91,13 @@ const Policy = () => {
               Purpose of collection: to provide you with support and to
               communicate with you about your account.
             </li>
-            <li className="list-disc text-gray-600">Source of collection: Collected from you.</li>
+            <li className="list-disc text-gray-600">
+              Source of collection: Collected from you.
+            </li>
           </ul>
-          <h1 className="text-center text-4xl my-10 font-semibold">Sharing Personal Information</h1>
+          <h1 className="text-center text-4xl my-10 font-semibold">
+            Sharing Personal Information
+          </h1>
           <p className="text-gray-600">
             We share your Personal Information with third parties to help us use
             your Personal Information, as described above. We use Google
@@ -97,7 +107,9 @@ const Policy = () => {
             out of Google Analytics here:
             https://tools.google.com/dlpage/gaoptout.
           </p>
-          <h2 className="text-2xl my-8 font-semibold">Behavioral Advertising</h2>
+          <h2 className="text-2xl my-8 font-semibold">
+            Behavioral Advertising
+          </h2>
           <p className="text-gray-600">
             As described above, we use your Personal Information to provide you
             with targeted advertisements or marketing communications we believe
@@ -119,7 +131,9 @@ const Policy = () => {
               (which you may consent to, depending on your location).
             </li>
           </ul>
-          <h1 className="my-8 text-4xl font-semibold text-center">Using Personal Information</h1>
+          <h1 className="my-8 text-4xl font-semibold text-center">
+            Using Personal Information
+          </h1>
           <p className="text-gray-600">
             We use your personal Information to provide our services to you,
             which includes: offering products for sale, processing payments,

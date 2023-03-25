@@ -1,11 +1,14 @@
-import Head from "next/head";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Montserrat } from "next/font/google";
-import ContactInfo from "@/components/checkout/ContactInfo";
+import Cart from "@/components/Cart";
 import ContactForm from "@/components/checkout/ContactForm";
-import Regions from "@/components/checkout/Regions";
+import ContactInfo from "@/components/checkout/ContactInfo";
 import ProductList from "@/components/checkout/ProductList";
+import Regions from "@/components/checkout/Regions";
+import Footer from "@/components/Footer";
+import MobileNav from "@/components/MobileNav";
+import Navbar from "@/components/Navbar";
+import { useShop } from "@/context/context";
+import { Montserrat } from "next/font/google";
+import Head from "next/head";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,6 +16,7 @@ const montserrat = Montserrat({
 });
 
 const Checkout = () => {
+  const { cartOpen, sideNav } = useShop();
   return (
     <>
       <Head>
@@ -23,6 +27,8 @@ const Checkout = () => {
       </Head>
       <div className={`${montserrat.className}`}>
         <Navbar />
+        {cartOpen && <Cart />}
+        {sideNav && <MobileNav />}
         <section className="bg-white">
           <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
             <div className="lg:grid grid-cols-2 gap-4">

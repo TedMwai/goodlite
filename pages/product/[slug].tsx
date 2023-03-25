@@ -1,15 +1,18 @@
-import Navbar from "@/components/Navbar";
+import Cart from "@/components/Cart";
+import HtmlContent from "@/components/Description";
 import Footer from "@/components/Footer";
+import MobileNav from "@/components/MobileNav";
+import Navbar from "@/components/Navbar";
+import { useShop } from "@/context/context";
+import prisma from "@/lib/prisma";
+import { Product } from "@/types/types";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
-import { IoHeartOutline as Heart, IoAddOutline as Add } from "react-icons/io5";
-import prisma from "@/lib/prisma";
-import { GetStaticProps, GetStaticPaths } from "next";
-import { Product } from "@/types/types";
-import { ParsedUrlQuery } from "querystring";
-import HtmlContent from "@/components/Description";
-import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
+import { ParsedUrlQuery } from "querystring";
+import { IoAddOutline as Add, IoHeartOutline as Heart } from "react-icons/io5";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   product: Product;
@@ -25,9 +28,12 @@ const montserrat = Montserrat({
 });
 
 const Item = ({ product, similarProducts }: Props) => {
+  const { cartOpen, sideNav } = useShop();
   return (
     <div className={montserrat.className}>
       <Navbar />
+      {cartOpen && <Cart />}
+      {sideNav && <MobileNav />}
       <section className="bg-white">
         <div className="px-5 py-8 mx-auto md:px-12 lg:px-16 max-w-7xl">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
@@ -38,7 +44,11 @@ const Item = ({ product, similarProducts }: Props) => {
                     {product.name}
                   </p>
                   <div className="flex gap-12">
-                    <p className="mt-4 text-base tracking-tight text-gray-600 line-through">
+                    <p
+                      className={`mt-4 text-base tracking-tight text-gray-600 ${
+                        product.discountId !== null && "line-through"
+                      }`}
+                    >
                       Ksh {product.price}
                     </p>
                     {product.discountId &&
@@ -133,11 +143,11 @@ const Item = ({ product, similarProducts }: Props) => {
             <h1 className="text-xl">Related Products</h1>
             <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
               <div className="flex-shrink-0">
-                <div className="max-w-full flex gap-16 md:grid md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-8">
+                <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-4">
                   {similarProducts.length > 0 &&
                     similarProducts.map((product) => (
                       <div className="cursor-pointer" key={uuidv4()}>
-                        <div className="relative aspect-square overflow-hidden">
+                        <div className="relative w-40 h-40 md:w-56 md:h-56 xl:w-64 xl:h-64 aspect-square overflow-hidden">
                           <Image
                             src={product.coverImage}
                             alt="hero"
