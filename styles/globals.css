@@ -38,7 +38,8 @@
     transform: scaleX(1);
   }
 
-  .input-focus:focus + label {
+  .input-focus:focus + label,
+  .input-focus:not(:placeholder-shown) + label {
     @apply -top-4 left-4 text-sm;
   }
 
