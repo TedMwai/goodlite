@@ -3,9 +3,7 @@ import ContactForm from "@/components/checkout/ContactForm";
 import ContactInfo from "@/components/checkout/ContactInfo";
 import ProductList from "@/components/checkout/ProductList";
 import Regions from "@/components/checkout/Regions";
-import Footer from "@/components/Footer";
 import MobileNav from "@/components/MobileNav";
-import Navbar from "@/components/Navbar";
 import { useShop } from "@/context/context";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
@@ -26,7 +24,6 @@ const Checkout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`${montserrat.className}`}>
-        <Navbar />
         {cartOpen && <Cart />}
         {sideNav && <MobileNav />}
         <section className="bg-white">
@@ -46,7 +43,6 @@ const Checkout = () => {
             </div>
           </div>
         </section>
-        <Footer />
       </div>
     </>
   );

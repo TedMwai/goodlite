@@ -1,7 +1,5 @@
 import Cart from "@/components/Cart";
-import Footer from "@/components/Footer";
 import MobileNav from "@/components/MobileNav";
-import Navbar from "@/components/Navbar";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Products } from "@/types/types";
@@ -37,7 +35,6 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Navbar />
         <main className={montserrat.className}>
           {cartOpen && <Cart />}
           {sideNav && <MobileNav />}
@@ -269,7 +266,6 @@ export default function Home({
             </section>
           </div>
         </main>
-        <Footer />
       </div>
     </>
   );

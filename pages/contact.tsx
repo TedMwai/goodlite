@@ -1,7 +1,5 @@
 import Cart from "@/components/Cart";
-import Footer from "@/components/Footer";
 import MobileNav from "@/components/MobileNav";
-import Navbar from "@/components/Navbar";
 import { useShop } from "@/context/context";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
@@ -21,7 +19,6 @@ const Contact = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
       {cartOpen && <Cart />}
       {sideNav && <MobileNav />}
       <div
@@ -86,7 +83,6 @@ const Contact = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

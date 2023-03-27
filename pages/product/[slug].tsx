@@ -1,8 +1,6 @@
 import Cart from "@/components/Cart";
 import HtmlContent from "@/components/Description";
-import Footer from "@/components/Footer";
 import MobileNav from "@/components/MobileNav";
-import Navbar from "@/components/Navbar";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Product } from "@/types/types";
@@ -31,7 +29,6 @@ const Item = ({ product, similarProducts }: Props) => {
   const { cartOpen, sideNav } = useShop();
   return (
     <div className={montserrat.className}>
-      <Navbar />
       {cartOpen && <Cart />}
       {sideNav && <MobileNav />}
       <section className="bg-white">
@@ -186,7 +183,6 @@ const Item = ({ product, similarProducts }: Props) => {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };
