@@ -1,4 +1,4 @@
-import { products } from "@prisma/client";
+import { Products as products } from "@prisma/client";
 
 export type Products = (products & {
   discount: {
