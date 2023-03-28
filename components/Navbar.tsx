@@ -1,11 +1,10 @@
-import { FC, useState, useEffect } from "react";
-import Link from "next/link";
+import { useShop } from "@/context/context";
+import { signIn, useSession, signOut } from "next-auth/react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
-import { FiSearch, FiMenu } from "react-icons/fi";
-import { useShop } from "@/context/context";
-import { useSession, signIn, signOut } from "next-auth/react";
-
+import Link from "next/link";
+import { FC } from "react";
+import { FiMenu, FiSearch } from "react-icons/fi";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,8 +14,6 @@ const montserrat = Montserrat({
 const Navbar: FC = () => {
   const { setCartOpen, setSideNav } = useShop();
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useState(false);
-  console.log(session);
 
   return (
     <div className={`${montserrat.className} w-full mx-auto bg-white border-b`}>
@@ -46,36 +43,50 @@ const Navbar: FC = () => {
           </Link>
         </div>
         <div>
-          <ul className="flex gap-6 text-lg">
+          <ul className="flex gap-6">
             <li>
-              <Link
-                href="/"
-                className="lg:text-sm xl:text-base border-a-expand"
-              >
+              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                href="/"
-                className="lg:text-sm xl:text-base border-a-expand"
-              >
+            <li className="relative inline-block group">
+              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
                 Categories
               </Link>
+              <ul className="absolute left-0 w-40 py-2 bg-slate-100 shadow-xl z-10 group-hover:block hidden">
+                <li className="py-2">
+                  <Link
+                    href="/"
+                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                  >
+                    Adidas
+                  </Link>
+                </li>
+                <li className="py-2">
+                  <Link
+                    href="/"
+                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                  >
+                    Nike
+                  </Link>
+                </li>
+                <li className="py-2">
+                  <Link
+                    href="/"
+                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                  >
+                    Sign Out
+                  </Link>
+                </li>
+              </ul>
             </li>
             <li>
-              <Link
-                href="/"
-                className="lg:text-sm xl:text-base border-a-expand"
-              >
+              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
                 Products
               </Link>
             </li>
             <li>
-              <Link
-                href="/"
-                className="lg:text-sm xl:text-base border-a-expand"
-              >
+              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
                 About
               </Link>
             </li>
@@ -109,7 +120,10 @@ const Navbar: FC = () => {
               Sign up
             </button>
           ) : (
-            <div className="flex items-center cursor-pointer">
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => signOut()}
+            >
               <div>
                 <Image
                   src={session?.user?.image ?? "/user-icon.png"}
