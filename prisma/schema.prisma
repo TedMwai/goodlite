@@ -7,6 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ORDER_STATUS {
+  PENDING
+  PROCESSING
+  DELIVERED
+  CANCELLED
+}
+
+enum PAYMENT_STATUS {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
 model Category {
   id           Int        @id @default(autoincrement())
   name         String
@@ -84,14 +97,19 @@ model Cart {
 }
 
 model OrderDetails {
-  id         String       @id @default(cuid())
-  userId     String
-  total      Float
-  paymentId  String
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  user       User         @relation(fields: [userId], references: [id])
-  orderItems OrderItems[]
+  id                String         @id @default(cuid())
+  userId            String         
+  total             Float
+  paymentId         String
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  regionId          Int
+  checkoutRequestID String         @unique
+  paymentStatus     PAYMENT_STATUS @default(PENDING)
+  orderStatus       ORDER_STATUS   @default(PENDING)
+  user              User           @relation(fields: [userId], references: [id])
+  region            Region         @relation(fields: [regionId], references: [id])
+  orderItems        OrderItems[]
 }
 
 model OrderItems {
@@ -108,9 +126,12 @@ model OrderItems {
 model Addresses {
   id         String   @id @default(cuid())
   userId     String
-  address    String
-  city       String
-  postalCode String
+  firstName  String
+  lastName   String
+  address    String   @db.VarChar(500)
+  apartment  String   @db.VarChar(500)
+  city       String   @db.VarChar(500)
+  postalCode String?
   phone      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -150,4 +171,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Region {
+  id        Int            @id @default(autoincrement())
+  name      String         @db.VarChar(500)
+  amount    Float
+  createdAt DateTime       @default(now())
+  order     OrderDetails[]
 }
