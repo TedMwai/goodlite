@@ -3,14 +3,17 @@ import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
-import { Product } from "@/types/types";
+import { Cart as CartType, Product } from "@/types/types";
+import { myFetch } from "@/util/fetch";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
+import { useState } from "react";
 import { IoAddOutline as Add, IoHeartOutline as Heart } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 interface Props {
   product: Product;
@@ -26,7 +29,40 @@ const montserrat = Montserrat({
 });
 
 const Item = ({ product, similarProducts }: Props) => {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, setCartOpen, sideNav, setCart } = useShop();
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleIncrement = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    if (!isNaN(value) && value >= 1) {
+      setQuantity(value);
+    }
+  };
+
+  const addToCart = async () => {
+    try {
+      const res = await myFetch("/api/cart/addToCart", {
+        method: "POST",
+        body: JSON.stringify({ productId: product.id, quantity }),
+      });
+      const cartItems: CartType = await res.json();
+      setCart(cartItems);
+      setCartOpen(true);
+    } catch (error: unknown) {
+      console.log("Unable to add product to cart", error);
+    }
+  };
+
   return (
     <div className={montserrat.className}>
       {cartOpen && <Cart />}
@@ -58,24 +94,37 @@ const Item = ({ product, similarProducts }: Props) => {
                   <HtmlContent html={product.description} />
                 </div>
                 <div className="flex flex-col md:flex-row md:gap-4">
-                  <div className="flex justify-center py-4 gap-6 border-2 mt-4 w-full md:w-auto md:basis-1/4">
-                    <span className="mr-8 md:mr-2 text-2xl cursor-pointer">
-                      -
-                    </span>
+                  <div className="flex py-4 justify-center items-center border-2 mt-4 w-full md:w-auto md:basis-[15%] lg:basis-[30%] lg:gap-2">
+                    <button
+                      className="text-lg lg:text-xl cursor-pointer"
+                      onClick={handleDecrement}
+                    >
+                      <FiMinus />
+                    </button>
                     <input
                       type="number"
-                      defaultValue="1"
-                      className="border-0 outline-0 w-1/12"
+                      value={quantity}
+                      onChange={handleInputChange}
+                      className="border-0 outline-0 p-0 min-w-[30px] max-h-[24px] w-[20%] text-center"
+                      min="1"
                     />
-                    <span className="text-2xl cursor-pointer">+</span>
+                    <button
+                      className="text-lg lg:text-xl cursor-pointer"
+                      onClick={handleIncrement}
+                    >
+                      <FiPlus />
+                    </button>
                   </div>
-                  <button className="mt-4 w-full md:w-3/5 text-white bg-black py-4 cursor-pointer hover:bg-[#1a1918]">
+                  <button
+                    className="mt-4 w-full md:w-3/5 text-white bg-black py-4 cursor-pointer hover:bg-[#1a1918] md:basis-[85%] lg:basis-[70%]"
+                    onClick={addToCart}
+                  >
                     Add To Cart
                   </button>
                 </div>
                 <div className="flex flex-col md:flex-row md:gap-4">
-                  <div className="md:py-4 md:mt-4 w-full md:w-auto md:basis-1/4"></div>
-                  <div className="flex justify-center items-center gap-4 mt-4 w-full md:w-3/5 text-black bg-gray-200 py-4 cursor-pointer hover:bg-[#c5c5c5]">
+                  <div className="md:py-4 md:mt-4 w-full md:w-auto md:basis-[15%] lg:basis-[30%]"></div>
+                  <div className="flex justify-center items-center gap-4 mt-4 w-full md:w-3/5 text-black bg-gray-200 py-4 cursor-pointer hover:bg-[#c5c5c5] md:basis-[85%] lg:basis-[70%]">
                     <span>
                       <Heart className="text-black align-middle" />
                     </span>

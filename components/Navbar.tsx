@@ -1,11 +1,11 @@
 import { useShop } from "@/context/context";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/dist/client/router";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FiMenu, FiSearch } from "react-icons/fi";
-import { useRouter } from "next/dist/client/router";
-import { useUser } from "@auth0/nextjs-auth0/client";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,9 +13,19 @@ const montserrat = Montserrat({
 });
 
 const Navbar: FC = () => {
-  const { setCartOpen, setSideNav } = useShop();
+  const { setCartOpen, setSideNav, setCart, cart } = useShop();
   const router = useRouter();
   const { user } = useUser();
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const res = await fetch("/api/cart/getCartItems");
+      const cartItems = await res.json();
+      setCart(cartItems);
+    };
+
+    fetchCartItems();
+  }, [setCart]);
 
   return (
     <div className={`${montserrat.className} w-full mx-auto bg-white border-b`}>
@@ -34,7 +44,7 @@ const Navbar: FC = () => {
         >
           <Image src="/cart.svg" alt="Cart SVG" height={30} width={30} />
           <div className="absolute top-0 left-2 bg-black text-white rounded-full border-2 border-black h-4 w-4 flex items-center justify-center pointer-events-none">
-            <span className="text-xs pointer-events-none">0</span>
+            <span className="text-xs pointer-events-none">{cart.length}</span>
           </div>
         </div>
       </div>
@@ -109,7 +119,7 @@ const Navbar: FC = () => {
           >
             <Image src="/cart.svg" alt="Cart SVG" height={30} width={30} />
             <div className="absolute top-0 left-2 bg-black text-white rounded-full border-2 border-black h-4 w-4 flex items-center justify-center pointer-events-none">
-              <span className="text-xs pointer-events-none">0</span>
+              <span className="text-xs pointer-events-none">{cart.length}</span>
             </div>
           </div>
           {!user ? (

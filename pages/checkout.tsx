@@ -7,14 +7,84 @@ import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
+import { useState } from "react";
+import prisma from "@/lib/prisma";
+import { GetServerSideProps } from "next";
+import { Region, Addresses } from "@prisma/client";
+import { getSession } from "@auth0/nextjs-auth0";
+import { myFetch } from "@/util/fetch";
+import base64 from "base-64";
+import Modal from "@/components/checkout/modal/Modal";
+
+type Props = {
+  regions: Region[];
+  address: Addresses | undefined;
+};
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const Checkout = () => {
-  const { cartOpen, sideNav } = useShop();
+const Checkout = ({ regions, address }: Props) => {
+  const { cartOpen, sideNav, shippingRegionIndex, setCart } = useShop();
+  const [shipping, setShipping] = useState<boolean>(false);
+  const [regionSelected, setRegionSelected] = useState<boolean>(false);
+  const [number, setNumber] = useState<string>("");
+  const [modal, setModal] = useState<boolean>(false);
+
+  const handleCheckout = async (phone: string) => {
+    // check if number is valid
+    if (phone.length !== 10) {
+      return alert("Please enter a valid phone number");
+    }
+    // sanitize number
+    const sanitizedNumber = `254${phone.slice(1)}`;
+    // initialise payment
+    setModal(true);
+    try {
+      const total = 1;
+      const res = await myFetch("/api/checkout/payment", {
+        method: "POST",
+        body: JSON.stringify({
+          phone: sanitizedNumber,
+          total,
+          regionId: shippingRegionIndex,
+        }),
+      });
+      const { checkoutRequestID, userID } = await res.json();
+      // periodically poll to check if payment was successful
+      const interval = setInterval(async () => {
+        try {
+          const res = await myFetch("/api/orders/checkOrder", {
+            method: "POST",
+            body: JSON.stringify({
+              checkoutRequestID,
+              userID,
+            }),
+          });
+          const { msg } = await res.json();
+          if (msg === "Payment successful") {
+            setModal(false);
+            // clear cart
+            setCart([]);
+            clearInterval(interval);
+            alert("Payment successful");
+          } else if (msg === "Payment failed") {
+            setModal(false);
+            clearInterval(interval);
+            alert("Payment failed");
+          }
+        } catch (error) {
+          console.log(error);
+          clearInterval(interval);
+        }
+      }, 5000);
+    } catch (error: unknown) {
+      console.log("Unable to initialise Lipa-na-Mpesa", error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -26,19 +96,61 @@ const Checkout = () => {
       <div className={`${montserrat.className}`}>
         {cartOpen && <Cart />}
         {sideNav && <MobileNav />}
+        <Modal open={modal} setOpen={setModal} />
         <section className="bg-white">
           <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
-            <div className="lg:grid grid-cols-2 gap-4">
-              <div className="lg:order-2">
-                <h1 className="text-xl">Your Order</h1>
+            <div className="lg:flex gap-8">
+              <div className="lg:order-2 basis-[45%]">
+                <h1 className="text-2xl">Your Order</h1>
                 <div className="mt-4">
-                  <ProductList />
+                  <ProductList shipping={shipping} />
                 </div>
               </div>
-              <div className="lg:order-1">
-                <ContactInfo />
-                <ContactForm />
-                <Regions />
+              <div className="lg:order-1 basis-[55%]">
+                {shipping && (
+                  <ContactInfo
+                    setShipping={setShipping}
+                    setRegionSelected={setRegionSelected}
+                    regionSelected={regionSelected}
+                  />
+                )}
+                {!shipping && (
+                  <ContactForm address={address} setShipping={setShipping} />
+                )}
+                {shipping && !regionSelected && (
+                  <Regions
+                    regions={regions}
+                    setRegionSelected={setRegionSelected}
+                  />
+                )}
+                {shipping && regionSelected && (
+                  <div className="mt-8">
+                    <h1 className="text-xl text-center font-medium">
+                      Enter phone number to receive M-PESA prompt
+                    </h1>
+                    <div className="relative mt-8">
+                      <input
+                        type="number"
+                        className="border-2 w-full p-4 input-focus"
+                        placeholder=" "
+                        onChange={(e) => setNumber(e.target.value)}
+                      />
+                      <label
+                        className={`absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out`}
+                      >
+                        Phone Number *
+                      </label>
+                    </div>
+                    <div className="flex justify-center">
+                      <button
+                        className="mt-4 px-8 py-4 text-white bg-black rounded-full text-xl cursor-pointer hover:bg-gray-800"
+                        onClick={() => handleCheckout(number)}
+                      >
+                        Pay Now
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -49,3 +161,52 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context.req, context.res);
+  if (!session) {
+    const regions = await prisma.region.findMany();
+    const parsedAddress = context.req.cookies.address
+      ? decodeURIComponent(base64.decode(context.req.cookies.address))
+      : null;
+    const address = parsedAddress ? JSON.parse(parsedAddress) : null;
+    if (!address) {
+      return {
+        props: {
+          regions: JSON.parse(JSON.stringify(regions)),
+        },
+      };
+    }
+    return {
+      props: {
+        regions: JSON.parse(JSON.stringify(regions)),
+        address: JSON.parse(JSON.stringify(address)),
+      },
+    };
+  }
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user.email,
+    },
+  });
+  const address = await prisma.addresses.findFirst({
+    where: {
+      userId: user?.id,
+    },
+  });
+  if (!address) {
+    const regions = await prisma.region.findMany();
+    return {
+      props: {
+        regions: JSON.parse(JSON.stringify(regions)),
+      },
+    };
+  }
+  const regions = await prisma.region.findMany();
+  return {
+    props: {
+      regions: JSON.parse(JSON.stringify(regions)),
+      address: JSON.parse(JSON.stringify(address)),
+    },
+  };
+};

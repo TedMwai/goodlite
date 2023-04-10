@@ -10,11 +10,11 @@ const montserrat = Montserrat({
 });
 
 const MobileNav = () => {
-  const { setSideNav } = useShop();
+  const { setSideNav, cart } = useShop();
   return (
-    <div className={`${montserrat.className}`}>
+    <div className={`${montserrat.className} overflow-y-hidden`}>
       <div
-        className="fixed top-0 h-screen w-full bg-[#c0c0c099] z-10 flex justify-start"
+        className="fixed top-0 h-full w-full bg-[#c0c0c099] z-10 flex justify-start"
         onClick={() => setSideNav(false)}
       >
         <div
@@ -39,11 +39,11 @@ const MobileNav = () => {
           <div className="mt-8 flex flex-col overflow-hidden h-full">
             <div className="mt-4 overflow-y-scroll scrollbar h-full">
               <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                <h1 className="px-4">Home</h1>
+                <h1 className="px-4">HOME</h1>
               </div>
               <div>
                 <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">Discover</h1>
+                  <h1 className="px-4">DISCOVER</h1>
                   <Add className="mr-4" />
                 </div>
                 <div>
@@ -57,7 +57,7 @@ const MobileNav = () => {
               </div>
               <div>
                 <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">Products</h1>
+                  <h1 className="px-4">PRODUCTS</h1>
                   <Add className="mr-4" />
                 </div>
                 <div>
@@ -71,7 +71,7 @@ const MobileNav = () => {
               </div>
               <div>
                 <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">About</h1>
+                  <h1 className="px-4">ABOUT</h1>
                   <Add className="mr-4" />
                 </div>
                 <div>
@@ -85,7 +85,7 @@ const MobileNav = () => {
               </div>
               <div>
                 <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">About</h1>
+                  <h1 className="px-4">ABOUT</h1>
                   <Add className="mr-4" />
                 </div>
                 <div>
@@ -98,7 +98,7 @@ const MobileNav = () => {
                 </div>
               </div>
             </div>
-            <div className="mb-32 grid grid-cols-2 gap-4 py-4">
+            <div className="mb-24 grid grid-cols-2 gap-4 py-4">
               <div className="flex items-center gap-4 border-2 py-2 px-3 bg-gray-600">
                 <h1 className="text-white text-center text-lg w-full px-2">
                   Account
@@ -110,11 +110,23 @@ const MobileNav = () => {
                   width={24}
                 />
               </div>
-              <div className="flex items-center gap-4 border-2 py-2 px-3 bg-black">
-                <h1 className="text-white text-center text-lg w-full px-2">
+              <div className="flex items-center gap-4 border-2 border-black py-2 px-3">
+                <h1 className="text-black text-center text-lg w-full px-2">
                   Cart
                 </h1>
-                <Image src="/cart.svg" alt="Cart SVG" height={24} width={24} />
+                <div className="relative cursor-pointer">
+                  <Image
+                    src="/cart.svg"
+                    alt="Cart SVG"
+                    height={30}
+                    width={30}
+                  />
+                  <div className="absolute -top-0.5 left-[5px] bg-black text-white rounded-full border-2 border-black h-3 w-3 flex items-center justify-center pointer-events-none">
+                    <span className="text-xs pointer-events-none">
+                      {cart.length}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
