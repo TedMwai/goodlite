@@ -56,10 +56,10 @@ const Footer: FC = () => {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/accessibility"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Shipping Policy
+                      Accessibility
                     </Link>
                   </li>
                   <li>
@@ -72,10 +72,18 @@ const Footer: FC = () => {
                   </li>
                   <li>
                     <Link
-                      href="/accessibility"
+                      href="/shipping-policy"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Accessibility
+                      Shipping Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/refund-policy"
+                      className="text-sm text-gray-100 border-b-expand"
+                    >
+                      Refund Policy
                     </Link>
                   </li>
                 </ul>
