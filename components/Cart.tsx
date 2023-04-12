@@ -1,20 +1,19 @@
 import { useShop } from "@/context/context";
 import { Cart as CartType } from "@/types/types";
 import { myFetch } from "@/util/fetch";
-import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { FiMinus, FiPlus, FiX } from "react-icons/fi";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
 const Cart: FC = () => {
   const { setCartOpen, cart, setCart } = useShop();
   const router = useRouter();
+
+  function handleCloseCart() {
+    document.body.classList.remove("overflow-y-hidden");
+    setCartOpen(false);
+  }
 
   const getTotal = () => {
     let total = 0;
@@ -38,7 +37,6 @@ const Cart: FC = () => {
       });
       const cartItems: CartType = await res.json();
       setCart(cartItems);
-      setCartOpen(true);
     } catch (error: unknown) {
       console.log("Unable to add product to cart", error);
     }
@@ -52,7 +50,6 @@ const Cart: FC = () => {
       });
       const cartItems: CartType = await res.json();
       setCart(cartItems);
-      setCartOpen(true);
     } catch (error: unknown) {
       console.log("Unable to add product to cart", error);
     }
@@ -66,19 +63,16 @@ const Cart: FC = () => {
       });
       const cartItems: CartType = await res.json();
       setCart(cartItems);
-      setCartOpen(true);
     } catch (error: unknown) {
       console.log("Unable to add product to cart", error);
     }
   };
 
   return (
-    <div
-      className={`${montserrat.className} z-10 fixed top-0 right-0 h-full w-full overflow-hidden`}
-    >
+    <div className={`z-10 fixed top-0 right-0 h-full w-full overflow-hidden`}>
       <div
         className="h-full bg-[#c0c0c099] z-10 flex justify-end overflow-hidden"
-        onClick={() => setCartOpen(false)}
+        onClick={handleCloseCart}
       >
         <div
           className="w-full h-full md:w-[60%] lg:w-6/12 xl:w-[32%] bg-white p-8 relative"
@@ -94,7 +88,7 @@ const Cart: FC = () => {
                 </div>
               </div>
             </div>
-            <div onClick={() => setCartOpen(false)}>
+            <div onClick={handleCloseCart}>
               <FiX className="text-2xl cursor-pointer" />
             </div>
           </div>
@@ -108,7 +102,7 @@ const Cart: FC = () => {
               {cart.length > 0 &&
                 cart.map((product) => (
                   <div className="flex gap-4 mb-8" key={product.id}>
-                    <div className="relative w-16 h-16 md:w-24 md:h-24 aspect-square">
+                    <div className="relative w-20 h-20 md:w-24 md:h-24 aspect-square">
                       <Image
                         src={product.product.coverImage}
                         alt="product"
@@ -169,7 +163,7 @@ const Cart: FC = () => {
                 className="bg-black text-white py-3 px-4 text-lg mb-4 w-full hover:bg-gray-800"
                 onClick={() => {
                   router.push("/checkout");
-                  setCartOpen(false);
+                  handleCloseCart();
                 }}
               >
                 Checkout

@@ -17,6 +17,22 @@ const Navbar: FC = () => {
   const router = useRouter();
   const { user } = useUser();
 
+  const handleOpenCart = () => {
+    setCartOpen(true);
+    // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    if (typeof window != "undefined" && window.document) {
+     document.body.classList.add("overflow-y-hidden");
+    }
+  }
+
+  const handleOpenMobileNav = () => {
+    setSideNav(true);
+    // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    if (typeof window != "undefined" && window.document) {
+     document.body.classList.add("overflow-y-hidden");
+    }
+  }
+
   useEffect(() => {
     const fetchCartItems = async () => {
       const res = await fetch("/api/cart/getCartItems");
@@ -30,7 +46,7 @@ const Navbar: FC = () => {
   return (
     <div className={`${montserrat.className} w-full mx-auto bg-white border-b`}>
       <div className="flex justify-between items-center w-full p-5 bg-white lg:hidden">
-        <div onClick={() => setSideNav(true)}>
+        <div onClick={handleOpenMobileNav}>
           <FiMenu className="text-2xl cursor-pointer" />
         </div>
         <div>
@@ -38,10 +54,7 @@ const Navbar: FC = () => {
             GOODLITE
           </Link>
         </div>
-        <div
-          className="relative cursor-pointer"
-          onClick={() => setCartOpen(true)}
-        >
+        <div className="relative cursor-pointer" onClick={handleOpenCart}>
           <Image src="/cart.svg" alt="Cart SVG" height={30} width={30} />
           <div className="absolute top-0 left-2 bg-black text-white rounded-full border-2 border-black h-4 w-4 flex items-center justify-center pointer-events-none">
             <span className="text-xs pointer-events-none">{cart.length}</span>
@@ -113,10 +126,7 @@ const Navbar: FC = () => {
             />
             <FiSearch className="text-2xl cursor-pointer" />
           </div>
-          <div
-            className="relative cursor-pointer"
-            onClick={() => setCartOpen(true)}
-          >
+          <div className="relative cursor-pointer" onClick={handleOpenCart}>
             <Image src="/cart.svg" alt="Cart SVG" height={30} width={30} />
             <div className="absolute top-0 left-2 bg-black text-white rounded-full border-2 border-black h-4 w-4 flex items-center justify-center pointer-events-none">
               <span className="text-xs pointer-events-none">{cart.length}</span>

@@ -38,6 +38,14 @@ const Item = ({ product, similarProducts }: Props) => {
     }
   };
 
+  const handleOpenCart= () => {
+    setCartOpen(true);
+    // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    if (typeof window != "undefined" && window.document) {
+      document.body.classList.add("overflow-y-hidden");
+    }
+  }
+
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -57,7 +65,7 @@ const Item = ({ product, similarProducts }: Props) => {
       });
       const cartItems: CartType = await res.json();
       setCart(cartItems);
-      setCartOpen(true);
+      handleOpenCart();
     } catch (error: unknown) {
       console.log("Unable to add product to cart", error);
     }
@@ -189,7 +197,7 @@ const Item = ({ product, similarProducts }: Props) => {
             <h1 className="text-xl">Related Products</h1>
             <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
               <div className="flex-shrink-0">
-                <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-4">
+                <div className="max-w-full flex gap-6 md:grid md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-4">
                   {similarProducts.length > 0 &&
                     similarProducts.map((product) => (
                       <div className="cursor-pointer" key={uuidv4()}>

@@ -60,7 +60,7 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
+                          <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {adidasProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
                                 <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
@@ -145,7 +145,7 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
+                          <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {nikeProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
                                 <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
@@ -210,7 +210,7 @@ export default function Home({
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
-                          <div className="max-w-full flex gap-12 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
+                          <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {jordanProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
                                 <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">

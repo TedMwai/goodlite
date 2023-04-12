@@ -1,21 +1,21 @@
-import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import { FiX, FiSearch } from "react-icons/fi";
 import { IoAddOutline as Add } from "react-icons/io5";
 import { useShop } from "@/context/context";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
 const MobileNav = () => {
   const { setSideNav, cart } = useShop();
+
+  const handleCloseMobileNav = () => {
+    setSideNav(false);
+    document.body.classList.remove("overflow-y-hidden");
+  }
+
   return (
-    <div className={`${montserrat.className} overflow-y-hidden`}>
+    <div className={`overflow-y-hidden`}>
       <div
         className="fixed top-0 h-full w-full bg-[#c0c0c099] z-10 flex justify-start"
-        onClick={() => setSideNav(false)}
+        onClick={handleCloseMobileNav}
       >
         <div
           className="w-full md:w-[55%] lg:w-6/12 xl:w-[35%] bg-white px-6 relative"
@@ -24,7 +24,7 @@ const MobileNav = () => {
           <div className="mt-4 flex items-center justify-between">
             <FiX
               className="text-2xl cursor-pointer"
-              onClick={() => setSideNav(false)}
+              onClick={handleCloseMobileNav}
             />
             <div className="flex gap-2 items-center border-b-2">
               <input
