@@ -1,6 +1,7 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
+import { AnimatePresence } from "framer-motion";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 
@@ -19,8 +20,10 @@ const Accessibility = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {cartOpen && <Cart />}
-      {sideNav && <MobileNav />}
+      <AnimatePresence>
+        {cartOpen && <Cart />}
+        {sideNav && <MobileNav />}
+      </AnimatePresence>
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
       >
@@ -34,9 +37,13 @@ const Accessibility = () => {
           If you are having difficulty viewing or navigating the content on this
           website, or notice any content, feature, or functionality that you
           believe is not fully accessible to people with disabilities, please
-          email our team at <span className=" cursor-pointer border-a-expand">goodlite@gmail.com</span> with the word “Accessibility” in
-          the subject line and provide a description of the specific feature you
-          feel is not fully accessible or a suggestion for improvement.
+          email our team at{" "}
+          <span className=" cursor-pointer border-a-expand">
+            goodlite@gmail.com
+          </span>{" "}
+          with the word “Accessibility” in the subject line and provide a
+          description of the specific feature you feel is not fully accessible
+          or a suggestion for improvement.
         </h3>
         <h3 className="text-gray-600 my-8">
           We take your feedback seriously and will consider it as we evaluate

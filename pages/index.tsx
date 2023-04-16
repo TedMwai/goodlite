@@ -8,6 +8,7 @@ import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
 
 interface Props {
   adidasProducts: Products;
@@ -36,12 +37,14 @@ export default function Home({
       </Head>
       <div>
         <main className={montserrat.className}>
-          {cartOpen && <Cart />}
-          {sideNav && <MobileNav />}
+          <AnimatePresence>
+            {cartOpen && <Cart />}
+            {sideNav && <MobileNav />}
+          </AnimatePresence>
           <div>
             <section className="bg-white">
               <div className="px-5 py-12 mx-auto md:px-12 lg:px-16">
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                   <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
                     <div className="max-w-xl md:max-w-full text-center lg:text-left">
                       <div>
@@ -116,7 +119,7 @@ export default function Home({
             </section>
             <section className="bg-white">
               <div className="px-5 py-12 mx-auto md:px-12 lg:px-16">
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                   <div className="order-first lg:mt-0">
                     <div className="relative aspect-square overflow-hidden">
                       <Image
@@ -191,7 +194,7 @@ export default function Home({
             </section>
             <section className="bg-white">
               <div className="px-5 py-12 mx-auto md:px-12 lg:px-16">
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                   <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
                     <div className="max-w-xl md:max-w-full text-center lg:text-left">
                       <div>

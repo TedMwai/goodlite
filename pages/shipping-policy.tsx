@@ -3,6 +3,7 @@ import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Region } from "@prisma/client";
+import { AnimatePresence } from "framer-motion";
 import { GetServerSideProps } from "next";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
@@ -27,8 +28,10 @@ const Shipping = ({ regions }: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {cartOpen && <Cart />}
-      {sideNav && <MobileNav />}
+      <AnimatePresence>
+        {cartOpen && <Cart />}
+        {sideNav && <MobileNav />}
+      </AnimatePresence>
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
       >

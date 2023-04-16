@@ -1,7 +1,9 @@
-import Image from "next/image";
-import { FiX, FiSearch } from "react-icons/fi";
-import { IoAddOutline as Add } from "react-icons/io5";
+import Accordion from "@/components/Accordion";
 import { useShop } from "@/context/context";
+import Image from "next/image";
+import { FiSearch, FiX } from "react-icons/fi";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 const MobileNav = () => {
   const { setSideNav, cart } = useShop();
@@ -9,16 +11,26 @@ const MobileNav = () => {
   const handleCloseMobileNav = () => {
     setSideNav(false);
     document.body.classList.remove("overflow-y-hidden");
-  }
+  };
 
   return (
     <div className={`overflow-y-hidden`}>
-      <div
+      <motion.div
         className="fixed top-0 h-full w-full bg-[#c0c0c099] z-10 flex justify-start"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{
+          opacity: 0,
+          transition: { duration: 0.3, ease: "easeOut", delay: 0.3 },
+        }}
         onClick={handleCloseMobileNav}
       >
-        <div
+        <motion.div
           className="w-full md:w-[55%] lg:w-6/12 xl:w-[35%] bg-white px-6 relative"
+          initial={{ x: "-100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "-100%" }}
+          transition={{ type: "tween" }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="mt-4 flex items-center justify-between">
@@ -41,62 +53,59 @@ const MobileNav = () => {
               <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
                 <h1 className="px-4">HOME</h1>
               </div>
-              <div>
-                <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">DISCOVER</h1>
-                  <Add className="mr-4" />
-                </div>
-                <div>
-                  <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">PRODUCTS</h1>
-                  <Add className="mr-4" />
-                </div>
-                <div>
-                  <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">ABOUT</h1>
-                  <Add className="mr-4" />
-                </div>
-                <div>
-                  <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                  <h1 className="px-4">ABOUT</h1>
-                  <Add className="mr-4" />
-                </div>
-                <div>
-                  <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                    <li className="ml-4 list-disc">lorem ipsum</li>
-                  </ul>
-                </div>
-              </div>
+              <Accordion title="DISCOVER">
+                <li className="ml-4 list-disc">lorem ipsum</li>
+                <li className="ml-4 list-disc">lorem ipsum</li>
+                <li className="ml-4 list-disc">lorem ipsum</li>
+                <li className="ml-4 list-disc">lorem ipsum</li>
+              </Accordion>
+              <Accordion title="PRODUCTS">
+                <li className="ml-4 list-disc">Street Lights</li>
+                <li className="ml-4 list-disc">Flood Lights</li>
+                <li className="ml-4 list-disc">Garden Lamps</li>
+                <li className="ml-4 list-disc">Rechargable Light</li>
+              </Accordion>
+              <Accordion title="ABOUT">
+                <li className="ml-4 list-disc">
+                  <Link href="/contact" className="text-black border-a-expand">
+                    Contact
+                  </Link>
+                </li>
+                <li className="ml-4 list-disc">
+                  <Link
+                    href="/accessibility"
+                    className="text-black border-a-expand"
+                  >
+                    Accessibility
+                  </Link>
+                </li>
+              </Accordion>
+              <Accordion title="RESOURCES">
+                <li className="ml-4 list-disc py-1">
+                  <Link
+                    href="/privacy-policy"
+                    className="text-base text-black border-b-expand"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li className="ml-4 list-disc py-1">
+                  <Link
+                    href="/shipping-policy"
+                    className="text-base text-black border-b-expand"
+                  >
+                    Shipping Policy
+                  </Link>
+                </li>
+                <li className="ml-4 list-disc py-1">
+                  <Link
+                    href="/refund-policy"
+                    className="text-base text-black border-a-expand"
+                  >
+                    Refund Policy
+                  </Link>
+                </li>
+              </Accordion>
             </div>
             <div className="mb-24 grid grid-cols-2 gap-4 py-4">
               <div className="flex items-center gap-4 border-2 py-2 px-3 bg-gray-600">
@@ -130,8 +139,8 @@ const MobileNav = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

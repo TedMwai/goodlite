@@ -62,6 +62,7 @@
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     height: 0.5rem;
+    width: 0.5rem;
   }
   .scrollbar::-webkit-scrollbar-thumb {
     background-color: #9ca3af;

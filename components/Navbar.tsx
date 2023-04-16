@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect } from "react";
 import { FiMenu, FiSearch } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -16,6 +17,7 @@ const Navbar: FC = () => {
   const { setCartOpen, setSideNav, setCart, cart } = useShop();
   const router = useRouter();
   const { user } = useUser();
+  const path = router.pathname;
 
   const handleOpenCart = () => {
     setCartOpen(true);
@@ -63,7 +65,7 @@ const Navbar: FC = () => {
       </div>
       <div className="hidden lg:flex w-full bg-white lg:items-center lg:justify-between lg:px-8 lg:py-5">
         <div className="">
-          <Link className="text-2xl font-semibold" href="/">
+          <Link className="relative text-2xl font-semibold" href="/">
             GOODLITE
           </Link>
         </div>
@@ -71,11 +73,23 @@ const Navbar: FC = () => {
           <ul className="flex gap-6">
             <li>
               <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+                {path === "/" && (
+                  <motion.span
+                    layoutId="underline"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                  />
+                )}
                 Home
               </Link>
             </li>
             <li className="relative inline-block group">
               <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+                {path === "/categories" && (
+                  <motion.span
+                    layoutId="underline"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                  />
+                )}
                 Categories
               </Link>
               <ul className="absolute left-0 w-40 py-2 bg-slate-100 shadow-xl z-10 group-hover:block hidden">
@@ -107,11 +121,23 @@ const Navbar: FC = () => {
             </li>
             <li>
               <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+                {path === "/products" && (
+                  <motion.span
+                    layoutId="underline"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                  />
+                )}
                 Products
               </Link>
             </li>
             <li>
-              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+              <Link href="/about" className="lg:text-sm xl:text-lg border-a-expand">
+                {path === "/about" && (
+                  <motion.span
+                    layoutId="underline"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                  />
+                )}
                 About
               </Link>
             </li>

@@ -1,3 +1,4 @@
+import Accordion from "@/components/Accordion";
 import Cart from "@/components/Cart";
 import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
@@ -5,15 +6,16 @@ import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Cart as CartType, Product } from "@/types/types";
 import { myFetch } from "@/util/fetch";
+import { AnimatePresence } from "framer-motion";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
-import { IoAddOutline as Add, IoHeartOutline as Heart } from "react-icons/io5";
-import { v4 as uuidv4 } from "uuid";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { IoHeartOutline as Heart } from "react-icons/io5";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   product: Product;
@@ -38,13 +40,13 @@ const Item = ({ product, similarProducts }: Props) => {
     }
   };
 
-  const handleOpenCart= () => {
+  const handleOpenCart = () => {
     setCartOpen(true);
     // Disables Background Scrolling whilst the SideDrawer/Modal is open
     if (typeof window != "undefined" && window.document) {
       document.body.classList.add("overflow-y-hidden");
     }
-  }
+  };
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -73,8 +75,10 @@ const Item = ({ product, similarProducts }: Props) => {
 
   return (
     <div className={montserrat.className}>
-      {cartOpen && <Cart />}
-      {sideNav && <MobileNav />}
+      <AnimatePresence>
+        {cartOpen && <Cart />}
+        {sideNav && <MobileNav />}
+      </AnimatePresence>
       <section className="bg-white">
         <div className="px-5 py-8 mx-auto md:px-12 lg:px-16 max-w-7xl">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
@@ -140,34 +144,18 @@ const Item = ({ product, similarProducts }: Props) => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <div>
-                    <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                      <h1 className="px-4">Shipping</h1>
-                      <Add className="mr-4" />
-                    </div>
-                    <div>
-                      <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                      <h1 className="px-4">Return Policy</h1>
-                      <Add className="mr-4" />
-                    </div>
-                    <div>
-                      <ul className="text-base tracking-tight text-gray-600 px-8 mb-4">
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                        <li className="ml-4 list-disc">lorem ipsum</li>
-                      </ul>
-                    </div>
-                  </div>
+                  <Accordion title="Shipping">
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                  </Accordion>
+                  <Accordion title="Return Policy">
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                    <li className="ml-4 list-disc">lorem ipsum</li>
+                  </Accordion>
                 </div>
               </div>
             </div>
@@ -201,7 +189,7 @@ const Item = ({ product, similarProducts }: Props) => {
                   {similarProducts.length > 0 &&
                     similarProducts.map((product) => (
                       <div className="cursor-pointer" key={uuidv4()}>
-                        <div className="relative w-40 h-40 md:w-56 md:h-56 xl:w-64 xl:h-64 aspect-square overflow-hidden">
+                        <div className="relative w-44 h-4w-44 md:w-56 md:h-56 xl:w-64 xl:h-64 aspect-square overflow-hidden">
                           <Image
                             src={product.coverImage}
                             alt="hero"

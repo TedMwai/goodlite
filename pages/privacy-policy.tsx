@@ -1,6 +1,7 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
+import { AnimatePresence } from "framer-motion";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 
@@ -19,8 +20,10 @@ const Policy = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {cartOpen && <Cart />}
-      {sideNav && <MobileNav />}
+      <AnimatePresence>
+        {cartOpen && <Cart />}
+        {sideNav && <MobileNav />}
+      </AnimatePresence>
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
       >

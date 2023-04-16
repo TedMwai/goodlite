@@ -5,10 +5,28 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { FiMinus, FiPlus, FiX } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const Cart: FC = () => {
   const { setCartOpen, cart, setCart } = useShop();
   const router = useRouter();
+
+  // Animation variance
+  const card = {
+    hidden: { opacity: 0, scale: 0.8, y: 20, x: 20 },
+    show: { opacity: 1, scale: 1, y: 0, x: 0 },
+  };
+
+  const cards = {
+    hidden: { opacity: 1 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.15,
+      },
+    },
+  };
 
   function handleCloseCart() {
     document.body.classList.remove("overflow-y-hidden");
@@ -70,12 +88,19 @@ const Cart: FC = () => {
 
   return (
     <div className={`z-10 fixed top-0 right-0 h-full w-full overflow-hidden`}>
-      <div
+      <motion.div
         className="h-full bg-[#c0c0c099] z-10 flex justify-end overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.2, ease: "easeOut" } }}
         onClick={handleCloseCart}
       >
-        <div
+        <motion.div
           className="w-full h-full md:w-[60%] lg:w-6/12 xl:w-[32%] bg-white p-8 relative"
+          initial={{ x: "50%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "50%" }}
+          transition={{ type: "tween" }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between border-b-2 pb-2 border-black">
@@ -99,62 +124,74 @@ const Cart: FC = () => {
                   <h1 className="text-lg text-center">Your cart is empty</h1>
                 </div>
               )}
-              {cart.length > 0 &&
-                cart.map((product) => (
-                  <div className="flex gap-4 mb-8" key={product.id}>
-                    <div className="relative w-20 h-20 md:w-24 md:h-24 aspect-square">
-                      <Image
-                        src={product.product.coverImage}
-                        alt="product"
-                        fill={true}
-                        className="w-full h-full object-cover object-center"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <div className="flex justify-between">
-                        <h1 className="text-base md:text-lg">
-                          {product.product.name}
-                        </h1>
+              <motion.div
+                layout
+                variants={cards}
+                initial="hidden"
+                animate="show"
+              >
+                {cart.length > 0 &&
+                  cart.map((product) => (
+                    <motion.div
+                      layout
+                      variants={card}
+                      className="flex gap-4 mb-8"
+                      key={product.id}
+                    >
+                      <div className="relative w-20 h-20 md:w-24 md:h-24 aspect-square">
                         <Image
-                          src="/delete.svg"
-                          alt="remove"
-                          width={24}
-                          height={24}
-                          className="cursor-pointer"
-                          onClick={() =>
-                            handleDelete(product.id, product.product.id)
-                          }
+                          src={product.product.coverImage}
+                          alt="product"
+                          fill={true}
+                          className="w-full h-full object-cover object-center"
                         />
                       </div>
-                      <div className="flex justify-between mt-4">
-                        <div className="w-24 md:w-36 flex gap-4 items-center">
-                          <FiMinus
+                      <div className="w-full">
+                        <div className="flex justify-between">
+                          <h1 className="text-base md:text-lg">
+                            {product.product.name}
+                          </h1>
+                          <Image
+                            src="/delete.svg"
+                            alt="remove"
+                            width={24}
+                            height={24}
                             className="cursor-pointer"
                             onClick={() =>
-                              handleDecrease(product.id, product.product.id)
-                            }
-                          />
-                          <p>{product.quantity}</p>
-                          <FiPlus
-                            className="cursor-pointer"
-                            onClick={() =>
-                              handleIncrease(product.id, product.product.id)
+                              handleDelete(product.id, product.product.id)
                             }
                           />
                         </div>
-                        <h1>
-                          Ksh.{" "}
-                          {product.product.discount !== null
-                            ? product.product.discount?.discount *
-                              product.quantity
-                            : product.product.price * product.quantity}
-                        </h1>
+                        <div className="flex justify-between mt-4">
+                          <div className="w-24 md:w-36 flex gap-4 items-center">
+                            <FiMinus
+                              className="cursor-pointer"
+                              onClick={() =>
+                                handleDecrease(product.id, product.product.id)
+                              }
+                            />
+                            <p>{product.quantity}</p>
+                            <FiPlus
+                              className="cursor-pointer"
+                              onClick={() =>
+                                handleIncrease(product.id, product.product.id)
+                              }
+                            />
+                          </div>
+                          <h1>
+                            Ksh.{" "}
+                            {product.product.discount !== null
+                              ? product.product.discount?.discount *
+                                product.quantity
+                              : product.product.price * product.quantity}
+                          </h1>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  ))}
+              </motion.div>
             </div>
-            <div className="mb-8">
+            <div className="mb-8 pt-4">
               <div className="flex justify-between">
                 <h1 className="text-lg">Subtotal:</h1>
                 <h1 className="text-lg">Ksh. {total}.00</h1>
@@ -170,8 +207,8 @@ const Cart: FC = () => {
               </button>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

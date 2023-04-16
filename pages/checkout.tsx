@@ -15,6 +15,7 @@ import { getSession } from "@auth0/nextjs-auth0";
 import { myFetch } from "@/util/fetch";
 import base64 from "base-64";
 import Modal from "@/components/checkout/modal/Modal";
+import { AnimatePresence } from "framer-motion";
 
 type Props = {
   regions: Region[];
@@ -94,8 +95,10 @@ const Checkout = ({ regions, address }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`${montserrat.className}`}>
-        {cartOpen && <Cart />}
-        {sideNav && <MobileNav />}
+        <AnimatePresence>
+          {cartOpen && <Cart />}
+          {sideNav && <MobileNav />}
+        </AnimatePresence>
         <Modal open={modal} setOpen={setModal} />
         <section className="bg-white">
           <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
