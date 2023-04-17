@@ -293,30 +293,16 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
       product: JSON.parse(JSON.stringify(product)),
       similarProducts: JSON.parse(JSON.stringify(similarProducts)),
     },
+    revalidate: 60, // In seconds
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get all the products
   const products = await prisma.products.findMany({
-    include: {
-      images: {
-        select: {
-          image: true,
-        },
-      },
-      category: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      discount: {
-        select: {
-          discount: true,
-        },
-      },
-    },
+    select: {
+      productSlug: true,
+    }
   });
   // Map the category IDs to their corresponding paths
   const paths = products.map((product) => ({

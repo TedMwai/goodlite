@@ -3,7 +3,8 @@ import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
-import { Orders as OrderDetails } from "@/types/types";
+import { Cart as CartType, Orders as OrderDetails } from "@/types/types";
+import { myFetch } from "@/util/fetch";
 import { getSession } from "@auth0/nextjs-auth0";
 import { Menu, Transition } from "@headlessui/react";
 import { PAYMENT_STATUS } from "@prisma/client";
@@ -33,7 +34,7 @@ function classNames(...classes: any) {
 }
 
 export default function Example({ orders }: Props) {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, sideNav, setCart, setCartOpen } = useShop();
 
   const date = (inputDate: any) => {
     const date = new Date(inputDate)
@@ -41,6 +42,28 @@ export default function Example({ orders }: Props) {
       .slice(0, 19)
       .replace("T", " ");
     return date;
+  };
+
+  const handleOpenCart = () => {
+    setCartOpen(true);
+    // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    if (typeof window != "undefined" && window.document) {
+      document.body.classList.add("overflow-y-hidden");
+    }
+  };
+
+  const addToCart = async (id: number) => {
+    try {
+      const res = await myFetch("/api/cart/addToCart", {
+        method: "POST",
+        body: JSON.stringify({ productId: id, quantity: 1 }),
+      });
+      const cartItems: CartType = await res.json();
+      setCart(cartItems);
+      handleOpenCart();
+    } catch (error: unknown) {
+      console.log("Unable to add product to cart", error);
+    }
   };
 
   return (
@@ -240,12 +263,12 @@ export default function Example({ orders }: Props) {
                                 </Link>
                               </div>
                               <div className="flex-1 pl-4 flex justify-center">
-                                <a
-                                  href="#"
+                                <button
                                   className="text-indigo-600 whitespace-nowrap hover:text-indigo-500"
+                                  onClick={() => addToCart(product.productId)}
                                 >
                                   Buy again
-                                </a>
+                                </button>
                               </div>
                             </div>
                           </div>
