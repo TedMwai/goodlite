@@ -95,31 +95,31 @@ const Footer: FC = () => {
                 <ul role="list" className="mt-4 space-y-4">
                   <li>
                     <Link
-                      href="#"
+                      href="/category/adidas"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Streetlights
+                      Adidas
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/category/nike"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Floodlights
+                      Nike
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/category/jordan"
                       className="text-sm text-gray-100 border-b-expand"
                     >
-                      Garden Lamps
+                      Jordans
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/products/all"
                       className="text-sm text-gray-100 border-b-expand"
                     >
                       Shop All

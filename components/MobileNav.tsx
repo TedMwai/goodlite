@@ -1,12 +1,12 @@
 import Accordion from "@/components/Accordion";
 import { useShop } from "@/context/context";
-import Image from "next/image";
-import { FiSearch, FiX } from "react-icons/fi";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { FiX } from "react-icons/fi";
 
 const MobileNav = () => {
-  const { setSideNav, cart } = useShop();
+  const { setSideNav } = useShop();
 
   const handleCloseMobileNav = () => {
     setSideNav(false);
@@ -26,27 +26,18 @@ const MobileNav = () => {
         onClick={handleCloseMobileNav}
       >
         <motion.div
-          className="w-full md:w-[55%] lg:w-6/12 xl:w-[35%] bg-white px-6 relative"
+          className="w-[85%] md:w-[55%] lg:w-6/12 xl:w-[35%] bg-white px-6 relative"
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           exit={{ x: "-100%" }}
           transition={{ type: "tween" }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-4">
             <FiX
               className="text-2xl cursor-pointer"
               onClick={handleCloseMobileNav}
             />
-            <div className="flex gap-2 items-center border-b-2">
-              <input
-                type="search"
-                className="px-4 py-2 w-9/12 focus:border-0 outline-none"
-                placeholder="Search products..."
-              />
-              <FiSearch className="text-2xl cursor-pointer" />
-            </div>
-            <Image src="/userIcon.svg" alt="user icon" width={24} height={24} />
           </div>
           <div className="mt-8 flex flex-col overflow-hidden h-full">
             <div className="mt-4 overflow-y-scroll scrollbar h-full">
@@ -60,12 +51,37 @@ const MobileNav = () => {
                 <li className="ml-4 list-disc">lorem ipsum</li>
               </Accordion>
               <Accordion title="PRODUCTS">
-                <li className="ml-4 list-disc">Street Lights</li>
-                <li className="ml-4 list-disc">Flood Lights</li>
-                <li className="ml-4 list-disc">Garden Lamps</li>
-                <li className="ml-4 list-disc">Rechargable Light</li>
+                <li className="ml-4 list-disc">
+                  <Link
+                    href="/category/adidas"
+                    className="text-base text-black border-b-expand"
+                  >
+                    Adidas
+                  </Link>
+                </li>
+                <li className="ml-4 list-disc">
+                  <Link
+                    href="/category/nike"
+                    className="text-base text-black border-b-expand"
+                  >
+                    Nike
+                  </Link>
+                </li>
+                <li className="ml-4 list-disc">
+                  <Link
+                    href="/category/jordan"
+                    className="text-base text-black border-b-expand"
+                  >
+                    Jordan
+                  </Link>
+                </li>
               </Accordion>
               <Accordion title="ABOUT">
+                <li className="ml-4 list-disc">
+                  <Link href="/contact" className="text-black border-a-expand">
+                    About Us
+                  </Link>
+                </li>
                 <li className="ml-4 list-disc">
                   <Link href="/contact" className="text-black border-a-expand">
                     Contact
@@ -107,9 +123,9 @@ const MobileNav = () => {
                 </li>
               </Accordion>
             </div>
-            <div className="mb-24 grid grid-cols-2 gap-4 py-4">
-              <div className="flex items-center gap-4 border-2 py-2 px-3 bg-gray-600">
-                <h1 className="text-white text-center text-lg w-full px-2">
+            <div className="mb-24 py-4">
+              <div className="flex items-center gap-4 border-2 border-black py-2 px-3">
+                <h1 className="text-center text-lg w-full px-2">
                   Account
                 </h1>
                 <Image
@@ -118,24 +134,6 @@ const MobileNav = () => {
                   height={24}
                   width={24}
                 />
-              </div>
-              <div className="flex items-center gap-4 border-2 border-black py-2 px-3">
-                <h1 className="text-black text-center text-lg w-full px-2">
-                  Cart
-                </h1>
-                <div className="relative cursor-pointer">
-                  <Image
-                    src="/cart.svg"
-                    alt="Cart SVG"
-                    height={30}
-                    width={30}
-                  />
-                  <div className="absolute -top-0.5 left-[5px] bg-black text-white rounded-full border-2 border-black h-3 w-3 flex items-center justify-center pointer-events-none">
-                    <span className="text-xs pointer-events-none">
-                      {cart.length}
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

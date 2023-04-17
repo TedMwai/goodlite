@@ -104,7 +104,7 @@ const Navbar: FC = () => {
               <ul className="absolute left-0 w-40 py-2 bg-slate-100 shadow-xl z-10 group-hover:block hidden">
                 <li className="py-2">
                   <Link
-                    href="/"
+                    href="/category/adidas"
                     className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
                   >
                     Adidas
@@ -112,7 +112,7 @@ const Navbar: FC = () => {
                 </li>
                 <li className="py-2">
                   <Link
-                    href="/"
+                    href="/category/nike"
                     className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
                   >
                     Nike
@@ -120,7 +120,7 @@ const Navbar: FC = () => {
                 </li>
                 <li className="py-2">
                   <Link
-                    href="/"
+                    href="/category/jordan"
                     className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
                   >
                     Jordans
@@ -129,8 +129,11 @@ const Navbar: FC = () => {
               </ul>
             </li>
             <li>
-              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
-                {path === "/products" && (
+              <Link
+                href="/products/all"
+                className="lg:text-sm xl:text-lg border-a-expand"
+              >
+                {path === "/products/all" && (
                   <motion.span
                     layoutId="underline"
                     className="absolute left-0 top-full block h-[2px] w-full bg-black"
