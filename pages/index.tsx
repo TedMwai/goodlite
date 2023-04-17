@@ -9,6 +9,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface Props {
   adidasProducts: Products;
@@ -27,6 +28,7 @@ export default function Home({
   jordanProducts,
 }: Props) {
   const { cartOpen, sideNav } = useShop();
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -58,7 +60,7 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/adidas")}>
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
@@ -143,7 +145,7 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/nike")}>
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
@@ -208,7 +210,7 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
+                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/jordan")}>
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
