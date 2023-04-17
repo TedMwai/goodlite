@@ -59,7 +59,7 @@ export default function Home({
                         </p>
                       </div>
                       <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
-                        Read More
+                        View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
@@ -144,7 +144,7 @@ export default function Home({
                         </p>
                       </div>
                       <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
-                        Read More
+                        View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">
@@ -209,7 +209,7 @@ export default function Home({
                         </p>
                       </div>
                       <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black">
-                        Read More
+                        View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
                         <div className="flex-shrink-0">

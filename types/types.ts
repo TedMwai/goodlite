@@ -1,4 +1,11 @@
-import { Products as products } from "@prisma/client";
+import {
+  Products as products,
+  OrderDetails,
+  OrderItems,
+  User,
+  Region,
+  Discount,
+} from "@prisma/client";
 
 export type Products = (products & {
   discount: {
@@ -74,3 +81,18 @@ export type resultBody = {
     };
   };
 };
+
+export type Orders = (OrderDetails & {
+  region: Region;
+  user: User;
+  orderItems: (OrderItems & {
+    product: {
+      name: string;
+      coverImage: string;
+      price: number;
+      description: string;
+      discount: Discount | null;
+      productSlug: string;
+    };
+  })[];
+})[];

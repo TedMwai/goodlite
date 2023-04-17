@@ -49,45 +49,47 @@ const Shipping = ({ regions }: Props) => {
         <h3 className="text-gray-600 my-8">
           We currently ship in the following regions:
         </h3>
-        <table className="min-w-full divide-y divide-gray-300 border-2">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-              >
-                {""}
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-              >
-                Region
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-              >
-                Price
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {regions.map((region, index) => (
-              <tr key={uuidv4()}>
-                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 border-2">
-                  {index + 1}
-                </td>
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
-                  {region.name}
-                </td>
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
-                  Ksh{region.amount}.00
-                </td>
+        <div className="overflow-x-scroll lg:overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-300 border-2">
+            <thead className="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                >
+                  {""}
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Region
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Price
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white">
+              {regions.map((region, index) => (
+                <tr key={uuidv4()}>
+                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 border-2">
+                    {index + 1}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
+                    {region.name}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
+                    Ksh{region.amount}.00
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
