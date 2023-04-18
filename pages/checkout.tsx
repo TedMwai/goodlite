@@ -12,10 +12,12 @@ import prisma from "@/lib/prisma";
 import { GetServerSideProps } from "next";
 import { Region, Addresses } from "@prisma/client";
 import { getSession } from "@auth0/nextjs-auth0";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { myFetch } from "@/util/fetch";
 import base64 from "base-64";
 import Modal from "@/components/checkout/modal/Modal";
 import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 
 type Props = {
   regions: Region[];
@@ -33,6 +35,8 @@ const Checkout = ({ regions, address }: Props) => {
   const [regionSelected, setRegionSelected] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
+  const router = useRouter();
+  const { user } = useUser();
 
   const handleCheckout = async (phone: string) => {
     // check if number is valid
@@ -71,6 +75,7 @@ const Checkout = ({ regions, address }: Props) => {
             setCart([]);
             clearInterval(interval);
             alert("Payment successful");
+            user ? router.push("/orders") : router.push("/");
           } else if (msg === "Payment failed") {
             setModal(false);
             clearInterval(interval);

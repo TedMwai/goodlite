@@ -7,7 +7,7 @@ import { Cart as CartType, Orders as OrderDetails } from "@/types/types";
 import { myFetch } from "@/util/fetch";
 import { getSession } from "@auth0/nextjs-auth0";
 import { Menu, Transition } from "@headlessui/react";
-import { PAYMENT_STATUS } from "@prisma/client";
+import { PAYMENT_STATUS, ORDER_STATUS } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import { GetServerSideProps } from "next";
 import { Montserrat } from "next/font/google";
@@ -110,11 +110,13 @@ export default function Example({ orders }: Props) {
                     </h3>
                     <div className="flex items-center p-4 border-b sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6 bg-gray-100">
                       <dl className="flex-1 grid grid-cols-2 gap-x-6 sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
-                        <div>
+                        <div className="max-w-full">
                           <dt className="font-medium text-gray-900">
                             Order number
                           </dt>
-                          <dd className="mt-1 text-gray-500">{order.id}</dd>
+                          <dd className="mt-1 text-gray-500 break-all">
+                            {order.id}
+                          </dd>
                         </div>
                         <div className="hidden sm:block">
                           <dt className="font-medium text-gray-900">
@@ -196,13 +198,13 @@ export default function Example({ orders }: Props) {
                         </Transition>
                       </Menu>
                       <div className="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
-                        <a
-                          href={order.id}
+                        <Link
+                          href={`orders/${order.id}`}
                           className="flex items-center justify-center bg-white py-2 px-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           <span>View Order</span>
                           <span className="sr-only">{order.id}</span>
-                        </a>
+                        </Link>
                         <a
                           href={order.id}
                           className="flex items-center justify-center bg-white py-2 px-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -246,12 +248,21 @@ export default function Example({ orders }: Props) {
                                 className="w-5 h-5 text-green-500"
                                 aria-hidden="true"
                               />
-                              <p className="ml-2 text-sm font-medium text-gray-500">
-                                Delivered on{" "}
-                                <time dateTime={date(order.createdAt)}>
-                                  {date(order.createdAt)}
-                                </time>
-                              </p>
+                              {order.orderStatus === ORDER_STATUS.DELIVERED ? (
+                                <p className="ml-2 text-sm font-medium text-gray-500">
+                                  Delivered on{" "}
+                                  <time dateTime={date(order.updatedAt)}>
+                                    {date(order.updatedAt)}
+                                  </time>
+                                </p>
+                              ) : (
+                                <p className="ml-2 text-sm font-medium text-gray-500">
+                                  Order placed on{" "}
+                                  <time dateTime={date(order.createdAt)}>
+                                    {date(order.createdAt)}
+                                  </time>
+                                </p>
+                              )}
                             </div>
                             <div className="mt-6 border-t border-gray-200 pt-4 flex items-center space-x-4 divide-x divide-gray-200 text-sm font-medium sm:mt-0 sm:ml-4 sm:border-none sm:pt-0">
                               <div className="flex-1 flex justify-center">
@@ -330,6 +341,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
       region: true,
       user: true,
+    },
+    orderBy: {
+      updatedAt: "desc",
     },
   });
   return {

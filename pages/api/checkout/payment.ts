@@ -37,7 +37,7 @@ export default async function handler(
       PartyB: 174379,
       PhoneNumber: parseInt(phone),
       CallBackURL:
-        "https://plenty-items-make-41-90-187-73.loca.lt/api/orders/processOrder",
+        "https://shy-schools-share-197-232-47-220.loca.lt/api/orders/processOrder",
       AccountReference: "Goodlite",
       TransactionDesc: "Testing M-Pesa",
     };
