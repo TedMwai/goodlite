@@ -5,7 +5,7 @@ import { useRouter } from "next/dist/client/router";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { FiMenu, FiPackage, FiSearch } from "react-icons/fi";
 import {
   HiOutlineUserCircle as Avatar,
@@ -19,10 +19,19 @@ const montserrat = Montserrat({
 });
 
 const Navbar: FC = () => {
-  const { setCartOpen, setSideNav, setCart, cart } = useShop();
+  const { setCartOpen, setSideNav, setSearchOpen, setCart, cart } = useShop();
   const router = useRouter();
   const { user } = useUser();
   const path = router.pathname;
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearch = () => {
+    // check if search query is greater than 1 characters
+    if (searchQuery.length < 1) {
+      return;
+    }
+    router.push(`/search?query=${searchQuery}`);
+  };
 
   const handleOpenCart = () => {
     setCartOpen(true);
@@ -34,6 +43,14 @@ const Navbar: FC = () => {
 
   const handleOpenMobileNav = () => {
     setSideNav(true);
+    // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    if (typeof window != "undefined" && window.document) {
+      document.body.classList.add("overflow-y-hidden");
+    }
+  };
+
+  const handleOpenSearch = () => {
+    setSearchOpen(true);
     // Disables Background Scrolling whilst the SideDrawer/Modal is open
     if (typeof window != "undefined" && window.document) {
       document.body.classList.add("overflow-y-hidden");
@@ -53,8 +70,13 @@ const Navbar: FC = () => {
   return (
     <div className={`${montserrat.className} w-full mx-auto bg-white border-b`}>
       <div className="flex justify-between items-center w-full p-5 bg-white lg:hidden">
-        <div onClick={handleOpenMobileNav}>
-          <FiMenu className="text-2xl cursor-pointer" />
+        <div className="flex gap-4 items-center">
+          <div onClick={handleOpenMobileNav}>
+            <FiMenu className="text-2xl cursor-pointer" />
+          </div>
+          <div onClick={handleOpenSearch}>
+            <FiSearch className="text-2xl cursor-pointer" />
+          </div>
         </div>
         <div>
           <Link className="text-2xl font-semibold" href="/">
@@ -161,8 +183,12 @@ const Navbar: FC = () => {
               type="search"
               className="px-4 py-2 w-9/12 focus:border-0 outline-none"
               placeholder="Search products..."
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <FiSearch className="text-2xl cursor-pointer" />
+            <FiSearch
+              className="text-2xl cursor-pointer"
+              onClick={handleSearch}
+            />
           </div>
           <div className="relative cursor-pointer" onClick={handleOpenCart}>
             <Image src="/cart.svg" alt="Cart SVG" height={30} width={30} />

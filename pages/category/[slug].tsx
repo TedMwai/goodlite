@@ -1,16 +1,17 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Cart as CartType, Products } from "@/types/types";
+import { myFetch } from "@/util/fetch";
+import { AnimatePresence } from "framer-motion";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence } from "framer-motion";
 import { ParsedUrlQuery } from "querystring";
-import { myFetch } from "@/util/fetch";
 
 interface Props {
   products: Products;
@@ -22,7 +23,7 @@ const montserrat = Montserrat({
 });
 
 const Collection = ({ products }: Props) => {
-  const { cartOpen, sideNav, setCart, setCartOpen } = useShop();
+  const { cartOpen, sideNav, setCart, setCartOpen, searchOpen } = useShop();
 
   const handleOpenCart = () => {
     setCartOpen(true);
@@ -58,6 +59,7 @@ const Collection = ({ products }: Props) => {
           <AnimatePresence>
             {cartOpen && <Cart />}
             {sideNav && <MobileNav />}
+            {searchOpen && <SearchComponent />}
           </AnimatePresence>
           <div className="px-5 py-12 mx-auto md:px-12 lg:px-16">
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-20 xl:gap-x-4 xl:gap-y-12">

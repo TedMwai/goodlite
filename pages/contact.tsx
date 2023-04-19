@@ -1,5 +1,6 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import { AnimatePresence } from "framer-motion";
 import { Montserrat } from "next/font/google";
@@ -11,7 +12,7 @@ const montserrat = Montserrat({
 });
 
 const Contact = () => {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, sideNav, searchOpen } = useShop();
   return (
     <>
       <Head>
@@ -23,6 +24,7 @@ const Contact = () => {
       <AnimatePresence>
         {cartOpen && <Cart />}
         {sideNav && <MobileNav />}
+        {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}

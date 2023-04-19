@@ -1,6 +1,7 @@
 import Cart from "@/components/Cart";
 import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { getSession } from "@auth0/nextjs-auth0";
@@ -47,7 +48,7 @@ const montserrat = Montserrat({
 });
 
 const IndividualOrderDetails = ({ order }: Props) => {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, sideNav, searchOpen } = useShop();
 
   const date = (inputDate: any) => {
     const date = new Date(inputDate)
@@ -90,9 +91,10 @@ const IndividualOrderDetails = ({ order }: Props) => {
           <AnimatePresence>
             {cartOpen && <Cart />}
             {sideNav && <MobileNav />}
+            {searchOpen && <SearchComponent />}
           </AnimatePresence>
           <div>
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto px-8 lg:px-0">
               <div className="max-w-xl">
                 <h1 className="font-semibold uppercase tracking-wide text-indigo-600">
                   Thank you!
@@ -124,7 +126,7 @@ const IndividualOrderDetails = ({ order }: Props) => {
                     className="py-10 border-b border-gray-300 flex gap-8"
                   >
                     <div>
-                      <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
+                      <div className="relative w-40 h-40 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
                         <Image
                           src={product.product.coverImage}
                           alt={product.product.name}
@@ -146,7 +148,7 @@ const IndividualOrderDetails = ({ order }: Props) => {
                         </div>
                       </div>
                       <div className="flex-1 flex items-end">
-                        <dl className="flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6">
+                        <dl className="flex flex-wrap text-sm divide-x divide-gray-200 sm:space-x-6">
                           <div className="flex">
                             <dt className="font-medium text-gray-900">
                               Quantity

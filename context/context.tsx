@@ -7,6 +7,8 @@ interface ContextType {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   sideNav: boolean;
   setSideNav: React.Dispatch<React.SetStateAction<boolean>>;
+  searchOpen: boolean;
+  setSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cart: Cart;
   setCart: React.Dispatch<React.SetStateAction<Cart>>;
   shippingPrice: number;
@@ -30,6 +32,8 @@ const defaultContext: ContextType = {
   setCartOpen: () => {},
   sideNav: false,
   setSideNav: () => {},
+  searchOpen: false,
+  setSearchOpen: () => {},
   cart: [],
   setCart: () => {},
   shippingPrice: 200,
@@ -61,6 +65,7 @@ const Context = createContext<ContextType>(defaultContext);
 export const ContextProvider: React.FC<Props> = ({ children }: Props) => {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [sideNav, setSideNav] = useState<boolean>(false);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [cart, setCart] = useState<Cart>([]);
   const [shippingPrice, setShippingPrice] = useState<number>(400);
   const [selectedRegionIndex, setSelectedRegionIndex] = useState<number>(0);
@@ -86,6 +91,8 @@ export const ContextProvider: React.FC<Props> = ({ children }: Props) => {
       setCartOpen,
       sideNav,
       setSideNav,
+      searchOpen,
+      setSearchOpen,
       cart,
       setCart,
       shippingPrice,
@@ -103,6 +110,7 @@ export const ContextProvider: React.FC<Props> = ({ children }: Props) => {
       cart,
       cartOpen,
       sideNav,
+      searchOpen,
       shippingPrice,
       selectedRegionIndex,
       shippingRegionIndex,

@@ -2,6 +2,7 @@ import Accordion from "@/components/Accordion";
 import Cart from "@/components/Cart";
 import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Cart as CartType, Product } from "@/types/types";
@@ -31,7 +32,7 @@ const montserrat = Montserrat({
 });
 
 const Item = ({ product, similarProducts }: Props) => {
-  const { cartOpen, setCartOpen, sideNav, setCart } = useShop();
+  const { cartOpen, setCartOpen, sideNav, setCart, searchOpen } = useShop();
   const [quantity, setQuantity] = useState<number>(1);
 
   const handleDecrement = () => {
@@ -78,6 +79,7 @@ const Item = ({ product, similarProducts }: Props) => {
       <AnimatePresence>
         {cartOpen && <Cart />}
         {sideNav && <MobileNav />}
+        {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <section className="bg-white">
         <div className="px-5 py-8 mx-auto md:px-12 lg:px-16 max-w-7xl">

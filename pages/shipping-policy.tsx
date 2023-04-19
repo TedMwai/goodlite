@@ -1,5 +1,6 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Region } from "@prisma/client";
@@ -19,7 +20,7 @@ const montserrat = Montserrat({
 });
 
 const Shipping = ({ regions }: Props) => {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, sideNav, searchOpen } = useShop();
   return (
     <>
       <Head>
@@ -31,6 +32,7 @@ const Shipping = ({ regions }: Props) => {
       <AnimatePresence>
         {cartOpen && <Cart />}
         {sideNav && <MobileNav />}
+        {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}

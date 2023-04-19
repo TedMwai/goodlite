@@ -1,6 +1,7 @@
 import Cart from "@/components/Cart";
 import HtmlContent from "@/components/Description";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Cart as CartType, Orders as OrderDetails } from "@/types/types";
@@ -34,7 +35,7 @@ function classNames(...classes: any) {
 }
 
 export default function Example({ orders }: Props) {
-  const { cartOpen, sideNav, setCart, setCartOpen } = useShop();
+  const { cartOpen, sideNav, setCart, setCartOpen, searchOpen } = useShop();
 
   const date = (inputDate: any) => {
     const date = new Date(inputDate)
@@ -79,6 +80,7 @@ export default function Example({ orders }: Props) {
           <AnimatePresence>
             {cartOpen && <Cart />}
             {sideNav && <MobileNav />}
+            {searchOpen && <SearchComponent />}
           </AnimatePresence>
           <div className="max-w-7xl mx-auto sm:px-2 lg:px-8">
             <div className="max-w-2xl mx-auto text-center px-4 lg:max-w-4xl lg:px-0">
@@ -165,8 +167,8 @@ export default function Example({ orders }: Props) {
                             <div className="py-1">
                               <Menu.Item>
                                 {({ active }) => (
-                                  <a
-                                    href={order.id}
+                                  <Link
+                                    href={`orders/${order.id}`}
                                     className={classNames(
                                       active
                                         ? "bg-gray-100 text-gray-900"
@@ -175,7 +177,7 @@ export default function Example({ orders }: Props) {
                                     )}
                                   >
                                     View
-                                  </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                               <Menu.Item>

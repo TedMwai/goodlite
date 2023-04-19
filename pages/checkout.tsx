@@ -1,23 +1,24 @@
 import Cart from "@/components/Cart";
+import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import ContactForm from "@/components/checkout/ContactForm";
 import ContactInfo from "@/components/checkout/ContactInfo";
 import ProductList from "@/components/checkout/ProductList";
 import Regions from "@/components/checkout/Regions";
-import MobileNav from "@/components/MobileNav";
+import Modal from "@/components/checkout/modal/Modal";
 import { useShop } from "@/context/context";
-import { Montserrat } from "next/font/google";
-import Head from "next/head";
-import { useState } from "react";
 import prisma from "@/lib/prisma";
-import { GetServerSideProps } from "next";
-import { Region, Addresses } from "@prisma/client";
+import { myFetch } from "@/util/fetch";
 import { getSession } from "@auth0/nextjs-auth0";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { myFetch } from "@/util/fetch";
+import { Addresses, Region } from "@prisma/client";
 import base64 from "base-64";
-import Modal from "@/components/checkout/modal/Modal";
 import { AnimatePresence } from "framer-motion";
+import { GetServerSideProps } from "next";
+import { Montserrat } from "next/font/google";
+import Head from "next/head";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 type Props = {
   regions: Region[];
@@ -30,7 +31,8 @@ const montserrat = Montserrat({
 });
 
 const Checkout = ({ regions, address }: Props) => {
-  const { cartOpen, sideNav, shippingRegionIndex, setCart } = useShop();
+  const { cartOpen, sideNav, shippingRegionIndex, setCart, searchOpen } =
+    useShop();
   const [shipping, setShipping] = useState<boolean>(false);
   const [regionSelected, setRegionSelected] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("");
@@ -103,6 +105,7 @@ const Checkout = ({ regions, address }: Props) => {
         <AnimatePresence>
           {cartOpen && <Cart />}
           {sideNav && <MobileNav />}
+          {searchOpen && <SearchComponent />}
         </AnimatePresence>
         <Modal open={modal} setOpen={setModal} />
         <section className="bg-white">

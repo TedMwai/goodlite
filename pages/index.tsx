@@ -1,14 +1,15 @@
 import Cart from "@/components/Cart";
 import MobileNav from "@/components/MobileNav";
+import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { Products } from "@/types/types";
+import { AnimatePresence } from "framer-motion";
 import { GetStaticProps } from "next";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -27,7 +28,7 @@ export default function Home({
   nikeProducts,
   jordanProducts,
 }: Props) {
-  const { cartOpen, sideNav } = useShop();
+  const { cartOpen, sideNav, searchOpen } = useShop();
   const router = useRouter();
   return (
     <>
@@ -42,6 +43,7 @@ export default function Home({
           <AnimatePresence>
             {cartOpen && <Cart />}
             {sideNav && <MobileNav />}
+            {searchOpen && <SearchComponent />}
           </AnimatePresence>
           <div>
             <section className="bg-white">
@@ -60,7 +62,10 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/adidas")}>
+                      <button
+                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        onClick={() => router.push("/category/adidas")}
+                      >
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
@@ -145,7 +150,10 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/nike")}>
+                      <button
+                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        onClick={() => router.push("/category/nike")}
+                      >
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
@@ -210,7 +218,10 @@ export default function Home({
                           visiting our website!
                         </p>
                       </div>
-                      <button className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black" onClick={() => router.push("/category/jordan")}>
+                      <button
+                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        onClick={() => router.push("/category/jordan")}
+                      >
                         View More
                       </button>
                       <div className="flex md:block md:overflow-hidden overflow-x-scroll scrollbar mt-8 mx-auto">
