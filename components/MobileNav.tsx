@@ -41,9 +41,18 @@ const MobileNav = () => {
           </div>
           <div className="mt-8 flex flex-col overflow-hidden h-full">
             <div className="mt-4 overflow-y-scroll scrollbar h-full">
-              <div className="flex items-center justify-between border-t-2 border-gray-400 py-4">
-                <h1 className="px-4">HOME</h1>
-              </div>
+              <Link
+                href="/"
+                className="flex items-center justify-between border-t-2 border-gray-400 py-4 px-4"
+              >
+                HOME
+              </Link>
+              <Link
+                href="/products/all"
+                className="flex items-center justify-between border-t-2 border-gray-400 py-4 px-4"
+              >
+                SHOP ALL
+              </Link>
               <Accordion title="DISCOVER">
                 <li className="ml-4 list-disc">lorem ipsum</li>
                 <li className="ml-4 list-disc">lorem ipsum</li>
@@ -125,9 +134,7 @@ const MobileNav = () => {
             </div>
             <div className="mb-24 py-4">
               <div className="flex items-center gap-4 border-2 border-black py-2 px-3">
-                <h1 className="text-center text-lg w-full px-2">
-                  Account
-                </h1>
+                <h1 className="text-center text-lg w-full px-2">Account</h1>
                 <Image
                   src="/userIcon.svg"
                   alt="Cart SVG"
