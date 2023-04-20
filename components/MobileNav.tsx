@@ -1,5 +1,6 @@
 import Accordion from "@/components/Accordion";
 import { useShop } from "@/context/context";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import { FiX } from "react-icons/fi";
 
 const MobileNav = () => {
   const { setSideNav } = useShop();
+  const { user } = useUser();
 
   const handleCloseMobileNav = () => {
     setSideNav(false);
@@ -33,11 +35,27 @@ const MobileNav = () => {
           transition={{ type: "tween" }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mt-4">
+          <div className="flex items-center justify-between mt-4">
             <FiX
               className="text-2xl cursor-pointer"
               onClick={handleCloseMobileNav}
             />
+            {user && (
+              <div className="relative flex items-center cursor-pointer">
+                <div>
+                  <Image
+                    src={user.picture ?? "/user-icon.png"}
+                    alt={"User Icon"}
+                    height={30}
+                    width={30}
+                    className="rounded-full p-1"
+                  />
+                </div>
+                <h1 className="text-sm font-medium border-a-expand">
+                  Hi, {user.name}
+                </h1>
+              </div>
+            )}
           </div>
           <div className="mt-8 flex flex-col overflow-hidden h-full">
             <div className="mt-4 overflow-y-scroll scrollbar h-full">
@@ -132,16 +150,27 @@ const MobileNav = () => {
                 </li>
               </Accordion>
             </div>
-            <div className="mb-24 py-4">
-              <div className="flex items-center gap-4 border-2 border-black py-2 px-3">
-                <h1 className="text-center text-lg w-full px-2">Account</h1>
-                <Image
-                  src="/userIcon.svg"
-                  alt="Cart SVG"
-                  height={24}
-                  width={24}
-                />
-              </div>
+            <div className="mb-24 py-4 border-t-2 border-gray-400">
+              {user ? (
+                <div className="flex items-center justify-between">
+                  <Link
+                    href="/api/auth/logout"
+                    className="flex items-center justify-between px-4 text-lg text-green-700"
+                  >
+                    Logout
+                  </Link>
+                  <Link
+                    href="/"
+                    className="flex items-center justify-between px-6 text-lg bg-green-900 text-white py-2 rounded-3xl"
+                  >
+                    Account
+                  </Link>
+                </div>
+              ) : (
+                <Link href="/api/auth/login" className="text-lg">
+                  LogIn
+                </Link>
+              )}
             </div>
           </div>
         </motion.div>
