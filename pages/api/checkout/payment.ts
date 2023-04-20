@@ -37,7 +37,7 @@ export default async function handler(
       PartyB: 174379,
       PhoneNumber: parseInt(phone),
       CallBackURL:
-        "https://shy-schools-share-197-232-47-220.loca.lt/api/orders/processOrder",
+        "https://shaky-coins-hope-197-232-47-220.loca.lt/api/orders/processOrder",
       AccountReference: "Goodlite",
       TransactionDesc: "Testing M-Pesa",
     };
@@ -68,6 +68,7 @@ export default async function handler(
             paymentId: "Mpesa",
             regionId,
             checkoutRequestID: data2.CheckoutRequestID,
+            phone: parseInt(phone),
           },
         });
         return res.status(200).json({
@@ -82,6 +83,7 @@ export default async function handler(
           paymentId: "Mpesa",
           regionId,
           checkoutRequestID: data2.CheckoutRequestID,
+          phone: parseInt(phone),
         },
       });
       const cartItems = await prisma.cart.findMany({
