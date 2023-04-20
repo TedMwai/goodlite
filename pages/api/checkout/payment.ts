@@ -37,7 +37,7 @@ export default async function handler(
       PartyB: 174379,
       PhoneNumber: parseInt(phone),
       CallBackURL:
-        "https://shaky-coins-hope-197-232-47-220.loca.lt/api/orders/processOrder",
+        `${process.env.SAFARICOM_CALLBACK_URL}/api/orders/processOrder`,
       AccountReference: "Goodlite",
       TransactionDesc: "Testing M-Pesa",
     };
