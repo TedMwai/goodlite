@@ -29,21 +29,23 @@ const Contact = () => {
       <div
         className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
       >
-        <h1 className="text-center text-5xl">WE WOULD LOVE TO HEAR FROM YOU</h1>
-        <h3 className="text-gray-600 my-8">
+        <h1 className="text-center text-5xl text-[#123026]">
+          WE WOULD LOVE TO HEAR FROM YOU
+        </h1>
+        <h3 className="text-[#123026] my-8">
           QUESTIONS OR ENGRAVING INSTRUCTIONS:
         </h3>
         <div>
-          <h1 className="font-semibold">CALL US</h1>
-          <h3>(+254) 712-344567</h3>
+          <h1 className="font-semibold text-[#123026]">CALL US</h1>
+          <h3 className="text-[#123026]">(+254) 712-344567</h3>
         </div>
         <div className="mt-6">
-          <h1 className="font-semibold">EMAIL</h1>
-          <h3>Goodlite - goodlite@gmail.com</h3>
+          <h1 className="font-semibold text-[#123026]">EMAIL</h1>
+          <h3 className="text-[#123026]">Goodlite - goodlite@gmail.com</h3>
         </div>
         <div>
           <form className="mt-6">
-            <h1 className="font-semibold">
+            <h1 className="font-semibold text-[#123026]">
               OR USE THE FORM BELOW TO CONTACT US
             </h1>
             <div className="relative mt-6">
@@ -85,6 +87,12 @@ const Contact = () => {
                 Message *
               </label>
             </div>
+            <button
+              className="p-4 text-white bg-[#123026] mt-6 hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
+              type="submit"
+            >
+              Contact Us
+            </button>
           </form>
         </div>
       </div>

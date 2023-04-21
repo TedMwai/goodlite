@@ -67,7 +67,7 @@ const Regions: FC<Props> = ({ regions, setRegionSelected }) => {
         ))}
       </div>
       <button
-        className="p-4 text-white bg-black mt-6 hover:bg-[#212120]"
+        className="p-4 text-white bg-[#123026] mt-6 hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
         type="button"
         onClick={() => setRegionSelected(true)}
       >

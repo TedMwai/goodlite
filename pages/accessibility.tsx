@@ -27,15 +27,15 @@ const Accessibility = () => {
         {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
-        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
+        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl text-[#123026]`}
       >
         <h1 className="text-center text-5xl">Accessibility</h1>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           Goodlite Kenya is committed to making our website&apos;s content
           accessible and user friendly to everyone, including people with
           disabilities.
         </h3>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           If you are having difficulty viewing or navigating the content on this
           website, or notice any content, feature, or functionality that you
           believe is not fully accessible to people with disabilities, please
@@ -47,7 +47,7 @@ const Accessibility = () => {
           description of the specific feature you feel is not fully accessible
           or a suggestion for improvement.
         </h3>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           We take your feedback seriously and will consider it as we evaluate
           ways to accommodate all of our customers and our overall accessibility
           policies.

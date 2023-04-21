@@ -35,10 +35,10 @@ const Shipping = ({ regions }: Props) => {
         {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
-        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
+        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl text-[#123026]`}
       >
         <h1 className="text-center text-5xl">Shipping Policy</h1>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           Goodlite offers shipping to all addresses within Kenya. We currently
           do not offer international shipping. Shipping rates and delivery times
           may vary depending on the size and weight of your order, as well as
@@ -48,28 +48,26 @@ const Shipping = ({ regions }: Props) => {
           the event of a failed delivery, your order will be reshipped and you
           will be charged another shipping fee.
         </h3>
-        <h3 className="text-gray-600 my-8">
-          We currently ship in the following regions:
-        </h3>
+        <h3 className="my-8">We currently ship in the following regions:</h3>
         <div className="overflow-x-scroll lg:overflow-hidden">
           <table className="min-w-full divide-y divide-gray-300 border-2">
             <thead className="bg-gray-50">
               <tr>
                 <th
                   scope="col"
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
                 >
                   {""}
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  className="px-3 py-3.5 text-left text-sm font-semibold"
                 >
                   Region
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  className="px-3 py-3.5 text-left text-sm font-semibold"
                 >
                   Price
                 </th>
@@ -78,13 +76,13 @@ const Shipping = ({ regions }: Props) => {
             <tbody className="bg-white">
               {regions.map((region, index) => (
                 <tr key={uuidv4()}>
-                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 border-2">
+                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 border-2">
                     {index + 1}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
+                  <td className="whitespace-nowrap px-3 py-4 text-sm border-2">
                     {region.name}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border-2">
+                  <td className="whitespace-nowrap px-3 py-4 text-sm border-2">
                     Ksh{region.amount}.00
                   </td>
                 </tr>

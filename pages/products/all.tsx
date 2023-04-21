@@ -85,14 +85,14 @@ const All = ({ products }: Props) => {
                     <div className="flex gap-8">
                       {product.discount !== null && (
                         <h3
-                          className={`hidden md:block text-gray-500 ${
-                            product.discountId && "line-through"
+                          className={`hidden md:block text-[#123026] ${
+                            product.discountId && "line-through text-gray-500"
                           }`}
                         >
                           Ksh {product.price}
                         </h3>
                       )}
-                      <h3 className="text-gray-500">
+                      <h3 className="text-[#123026]">
                         Ksh{" "}
                         {product.discount !== null
                           ? product.discount.discount
@@ -101,7 +101,7 @@ const All = ({ products }: Props) => {
                       </h3>
                     </div>
                     <button
-                      className="mt-2 xl:mt-4 bg-black text-white py-2 px-4 rounded-full w-full md:w-fit hover:bg-gray-800"
+                      className="mt-2 xl:mt-4 bg-[#123026] text-white py-2 px-4 rounded-full w-full md:w-fit hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
                       onClick={() => addToCart(product.id)}
                     >
                       Add to cart

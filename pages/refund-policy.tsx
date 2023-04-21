@@ -27,17 +27,17 @@ const Refund = () => {
         {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
-        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
+        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl text-[#123026]`}
       >
         <h1 className="text-center text-5xl">Return & Refund Policy</h1>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           Goodlite offers a 5-day refund policy for all products. If you are not
           completely satisfied with your purchase, you may return the product to
           us within 5 days of the purchase date for a full refund. To be
           eligible for a refund, the product must be in its original condition
           and packaging. Please note that shipping costs are non-refundable.
         </h3>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           To initiate a refund, please contact us at{" "}
           <span className="text-black italic cursor-pointer border-a-expand">
             goodlite@gmail.com
@@ -48,7 +48,7 @@ const Refund = () => {
           responsible for any shipping costs associated with the return of the
           product.
         </h3>
-        <h3 className="text-gray-600 my-8">
+        <h3 className="my-8">
           Once we receive the returned product, we will inspect it to ensure
           that it is in its original condition and packaging. If the product
           meets our refund policy criteria, we will issue a refund to your
@@ -57,7 +57,7 @@ const Refund = () => {
         </h3>
         <div>
           <h2 className="text-xl font-semibold">Defective or Damaged Goods:</h2>
-          <h3 className="text-gray-600 my-8">
+          <h3 className="my-8">
             If you receive a defective or damaged product, please contact us at{" "}
             <span className="text-black italic cursor-pointer border-a-expand">
               goodlite@gmail.com{" "}

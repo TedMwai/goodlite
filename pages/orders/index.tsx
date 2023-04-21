@@ -350,7 +350,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   return {
     props: {
-      orders: JSON.parse(JSON.stringify(orders)),
+      orders: JSON.parse(
+        JSON.stringify(orders, (key, value) => {
+          if (typeof value === "bigint") {
+            return value.toString();
+          } else {
+            return value;
+          }
+        })
+      ),
     },
   };
 };

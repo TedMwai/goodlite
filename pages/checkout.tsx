@@ -154,7 +154,7 @@ const Checkout = ({ regions, address }: Props) => {
                     </div>
                     <div className="flex justify-center">
                       <button
-                        className="mt-4 px-8 py-4 text-white bg-black rounded-full text-xl cursor-pointer hover:bg-gray-800"
+                        className="mt-4 px-8 py-4 text-white bg-[#123026] rounded-full text-xl cursor-pointer hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
                         onClick={() => handleCheckout(number)}
                       >
                         Pay Now

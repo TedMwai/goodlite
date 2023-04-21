@@ -4,14 +4,14 @@ import MobileNav from "@/components/MobileNav";
 import SearchComponent from "@/components/Search";
 import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
+import { OrderDetailsType } from "@/types/types";
 import { getSession } from "@auth0/nextjs-auth0";
 import {
   Addresses,
   Discount,
-  OrderDetails,
   OrderItems,
   Region,
-  User,
+  User
 } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import { GetServerSideProps } from "next";
@@ -21,7 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 
-type Order = OrderDetails & {
+type Order = OrderDetailsType & {
   region: Region;
   user: User & {
     addresses: Addresses[];
@@ -78,6 +78,14 @@ const IndividualOrderDetails = ({ order }: Props) => {
     return discount;
   };
   const discount = getDiscount();
+
+  const reduceString = (input: string) => {
+    const last4 = input.slice(-4);
+    const first4 = ".".repeat(4);
+    return first4 + last4;
+  };
+
+  const reducedNumber = reduceString(order.phone);
   return (
     <>
       <Head>
@@ -213,8 +221,7 @@ const IndividualOrderDetails = ({ order }: Props) => {
                         <p>M-PESA</p>
                         <p>Phone Number</p>
                         <p>
-                          <span aria-hidden="true">•••• </span>
-                          <span className="sr-only">Ending in </span>5010
+                          <span aria-hidden="true">{reducedNumber}</span>
                         </p>
                       </dd>
                     </div>
@@ -272,15 +279,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session.user.email,
-    },
-    select: {
-      id: true,
-      email: true,
-    },
-  });
   const order = await prisma.orderDetails.findUnique({
     where: {
       id: id as string,
@@ -310,7 +308,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   return {
     props: {
-      order: JSON.parse(JSON.stringify(order)),
+      order: JSON.parse(
+        JSON.stringify(order, (key, value) => {
+          if (typeof value === "bigint") {
+            return value.toString();
+          } else {
+            return value;
+          }
+        })
+      ),
     },
   };
 };
