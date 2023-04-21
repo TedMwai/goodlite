@@ -36,8 +36,7 @@ export default async function handler(
       PartyA: parseInt(phone),
       PartyB: 174379,
       PhoneNumber: parseInt(phone),
-      CallBackURL:
-        `${process.env.SAFARICOM_CALLBACK_URL}/api/orders/processOrder`,
+      CallBackURL: `${process.env.SAFARICOM_CALLBACK_URL}/api/orders/processOrder`,
       AccountReference: "Goodlite",
       TransactionDesc: "Testing M-Pesa",
     };

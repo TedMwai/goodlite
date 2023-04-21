@@ -15,7 +15,7 @@ const montserrat = Montserrat({
 
 const Footer: FC = () => {
   return (
-    <footer className={`${montserrat.className} bg-black`}>
+    <footer className={`${montserrat.className} bg-[#123026]`}>
       <div className="px-5 py-12 mx-auto lg:py-16 md:px-12 lg:px-20">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="xl:col-span-1">
@@ -35,7 +35,7 @@ const Footer: FC = () => {
                 ></path>
               </svg>
             </Link>
-            <h1 className="w-1/2 mt-2 text-gray-100 text-xl font-bold">
+            <h1 className="w-1/2 mt-2 text-white text-xl font-bold">
               GOODLITE
             </h1>
           </div>
@@ -49,7 +49,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/contact"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Contact
                     </Link>
@@ -57,7 +57,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/accessibility"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Accessibility
                     </Link>
@@ -65,7 +65,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/privacy-policy"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Privacy Policy
                     </Link>
@@ -73,7 +73,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/shipping-policy"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Shipping Policy
                     </Link>
@@ -81,7 +81,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/refund-policy"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Refund Policy
                     </Link>
@@ -96,7 +96,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/category/adidas"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Adidas
                     </Link>
@@ -104,7 +104,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/category/nike"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Nike
                     </Link>
@@ -112,7 +112,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/category/jordan"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Jordans
                     </Link>
@@ -120,7 +120,7 @@ const Footer: FC = () => {
                   <li>
                     <Link
                       href="/products/all"
-                      className="text-sm text-gray-100 border-b-expand"
+                      className="text-sm text-white border-b-expand"
                     >
                       Shop All
                     </Link>
@@ -134,7 +134,7 @@ const Footer: FC = () => {
                   <h3 className="font-semibold leading-6 uppercase text-white">
                     Subscribe to our newsletter
                   </h3>
-                  <p className="mt-4 text-sm font-light text-gray-100 lg:ml-auto">
+                  <p className="mt-4 text-sm font-light text-white lg:ml-auto">
                     Sign Up for Special Offers!
                   </p>
                   <div className="inline-flex items-center gap-2 mt-12 list-none lg:ml-auto">
@@ -146,11 +146,11 @@ const Footer: FC = () => {
                             aria-label="Email address"
                             placeholder="Email address"
                             required={true}
-                            className="block w-full p-3 text-black bg-white border border-gray-200 appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+                            className="block w-full p-3 text-black bg-white border border-gray-200 appearance-none placeholder:text-black focus:outline-none sm:text-sm"
                           />
                         </div>
                         <button
-                          className="relative inline-flex justify-center flex-none px-3 py-3 ml-1 overflow-hidden text-sm font-medium text-white transition-colors bg-[#232323] outline-2 outline-offset-2 before:absolute before:inset-0 active:before:bg-transparent hover:bg-[#424242]"
+                          className="relative inline-flex justify-center flex-none px-3 py-3 ml-1 overflow-hidden text-sm font-medium text-white transition-colors bg-green-900 outline-2 outline-offset-2 before:absolute before:inset-0 active:before:bg-transparent hover:bg-green-800"
                           type="submit"
                         >
                           <span className="inline">Join us!</span>
@@ -167,46 +167,26 @@ const Footer: FC = () => {
       <div className="px-5 py-12 mx-auto border-t max-w-7xl sm:px-6 md:flex md:items-center md:justify-between lg:px-20">
         <div className="flex justify-center mb-8 space-x-6 md:order-last md:mb-0">
           <span className="inline-flex justify-center w-full gap-3 lg:ml-auto md:justify-start md:w-auto">
-            <a className="w-6 h-6 transition cursor-pointer">
+            <Link href="/" className="w-6 h-6 transition cursor-pointer">
               <span className="sr-only">Whatsapp</span>
-              <Whatsapp
-                className="w-5 h-5 md hydrated text-white hover:text-green-500"
-                name="logo-whatsapp"
-                role="img"
-                aria-label="logo github"
-              ></Whatsapp>
-            </a>
-            <a className="w-6 h-6 transition cursor-pointer">
+              <Whatsapp className="w-5 h-5 text-white hover:text-green-500" />
+            </Link>
+            <Link href="/" className="w-6 h-6 transition cursor-pointer">
               <span className="sr-only">Facebook</span>
-              <Facebook
-                className="w-5 h-5 md hydrated text-white hover:text-blue-500"
-                name="logo-facebook"
-                role="img"
-                aria-label="logo twitter"
-              ></Facebook>
-            </a>
-            <a className="w-6 h-6 transition cursor-pointer">
+              <Facebook className="w-5 h-5 text-white hover:text-blue-500" />
+            </Link>
+            <Link href="/" className="w-6 h-6 transition cursor-pointer">
               <span className="sr-only">Instagram</span>
-              <Instagram
-                className="w-5 h-5 md hydrated text-white hover:text-purple-400"
-                name="logo-instagram"
-                role="img"
-                aria-label="logo instagram"
-              ></Instagram>
-            </a>
-            <a className="w-6 h-6 transition cursor-pointer">
+              <Instagram className="w-5 h-5 md hydrated text-white hover:text-purple-400" />
+            </Link>
+            <Link href="/" className="w-6 h-6 transition cursor-pointer">
               <span className="sr-only">Twitter</span>
-              <Twitter
-                className="w-5 h-5 md hydrated text-white hover:text-blue-500"
-                name="logo-twitter"
-                role="img"
-                aria-label="logo linkedin"
-              ></Twitter>
-            </a>
+              <Twitter className="w-5 h-5 md hydrated text-white hover:text-blue-500" />
+            </Link>
           </span>
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
-          <span className="mt-2 text-sm font-light text-gray-100">
+          <span className="mt-2 text-sm font-light text-white">
             Copyright © 2023 - Goodlite
           </span>
         </div>

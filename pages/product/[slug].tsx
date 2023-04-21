@@ -87,20 +87,21 @@ const Item = ({ product, similarProducts }: Props) => {
             <div className="gap-12 lg:inline-flex">
               <div className="max-w-xl md:max-w-full lg:max-w-xl text-left">
                 <div>
-                  <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                  <p className="text-2xl font-medium tracking-tighter text-[#123026] sm:text-4xl">
                     {product.name}
                   </p>
                   <div className="flex gap-12">
                     <p
-                      className={`mt-4 text-base tracking-tight text-gray-600 ${
-                        product.discountId !== null && "line-through"
+                      className={`mt-4 text-2xl tracking-tight text-[#123026] ${
+                        product.discountId !== null &&
+                        "line-through text-gray-600 text-base"
                       }`}
                     >
                       Ksh {product.price}
                     </p>
                     {product.discountId &&
                       product?.discount?.discount !== null && (
-                        <p className="mt-4 text-base tracking-tight text-gray-600">
+                        <p className="mt-4 text-2xl tracking-tight text-[#123026]">
                           Ksh {product?.discount?.discount}
                         </p>
                       )}
@@ -130,7 +131,7 @@ const Item = ({ product, similarProducts }: Props) => {
                     </button>
                   </div>
                   <button
-                    className="mt-4 w-full md:w-3/5 text-white bg-black py-4 cursor-pointer hover:bg-[#1a1918] md:basis-[85%] lg:basis-[70%]"
+                    className="mt-4 w-full md:w-3/5 text-white bg-[#123026] py-4 cursor-pointer hover:bg-[#1e4f3f] transition duration-300 ease-in-out md:basis-[85%] lg:basis-[70%]"
                     onClick={addToCart}
                   >
                     Add To Cart
@@ -167,6 +168,7 @@ const Item = ({ product, similarProducts }: Props) => {
                 alt="hero"
                 height={800}
                 width={800}
+                priority={true}
               />
               <div className="hidden md:mt-8 md:flex md:items-center md:gap-8 md:justify-center">
                 {product.images.length > 0 &&
@@ -191,14 +193,16 @@ const Item = ({ product, similarProducts }: Props) => {
                   {similarProducts.length > 0 &&
                     similarProducts.map((product) => (
                       <div className="cursor-pointer" key={uuidv4()}>
-                        <div className="relative w-44 h-4w-44 md:w-56 md:h-56 xl:w-64 xl:h-64 aspect-square overflow-hidden">
-                          <Image
-                            src={product.coverImage}
-                            alt="hero"
-                            fill={true}
-                            className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                          />
-                        </div>
+                        <Link href={`/product/${product.productSlug}`}>
+                          <div className="relative w-44 h-4w-44 md:w-56 md:h-56 xl:w-64 xl:h-64 aspect-square overflow-hidden">
+                            <Image
+                              src={product.coverImage}
+                              alt="hero"
+                              fill={true}
+                              className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                            />
+                          </div>
+                        </Link>
                         <div>
                           <Link
                             className="w-fit border-a-expand text-base pt-2 pb-1"
@@ -208,15 +212,16 @@ const Item = ({ product, similarProducts }: Props) => {
                           </Link>
                           <div className="flex gap-4 mt-2">
                             <h3
-                              className={`text-gray-500 ${
-                                product.discountId && "line-through"
+                              className={`text-[#123026] ${
+                                product.discountId &&
+                                "line-through text-gray-500"
                               }`}
                             >
                               Ksh {product.price}
                             </h3>
                             {product.discountId &&
                               product?.discount?.discount !== null && (
-                                <h3 className="text-gray-500">
+                                <h3 className="text-[#123026]">
                                   Ksh {product?.discount?.discount}
                                 </h3>
                               )}
@@ -304,7 +309,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const products = await prisma.products.findMany({
     select: {
       productSlug: true,
-    }
+    },
   });
   // Map the category IDs to their corresponding paths
   const paths = products.map((product) => ({

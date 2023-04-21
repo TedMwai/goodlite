@@ -197,7 +197,7 @@ const Cart: FC = () => {
                 <h1 className="text-lg">Ksh. {total}.00</h1>
               </div>
               <button
-                className="bg-black text-white py-3 px-4 text-lg mb-4 w-full hover:bg-gray-800"
+                className="bg-[#123026] text-white py-3 px-4 text-lg mb-4 w-full hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
                 onClick={() => {
                   router.push("/checkout");
                   handleCloseCart();

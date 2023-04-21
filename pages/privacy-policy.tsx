@@ -27,11 +27,11 @@ const Policy = () => {
         {searchOpen && <SearchComponent />}
       </AnimatePresence>
       <div
-        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl`}
+        className={`${montserrat.className} px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl text-[#123026]`}
       >
         <div>
           <h1 className="text-center text-5xl">Privacy Policy</h1>
-          <h3 className="text-gray-600 my-8">
+          <h3 className=" my-8">
             This Privacy Policy describes how goodlite.co.ke (the “Site” or
             “we”) collects, uses, and discloses your Personal Information when
             you visit or make a purchase from the Site.
@@ -41,7 +41,7 @@ const Policy = () => {
           <h1 className="text-center text-4xl font-semibold">
             Collecting Personal Information
           </h1>
-          <p className="mt-8 text-gray-600">
+          <p className="mt-8 ">
             When you visit the Site, we collect certain information about your
             device, your interaction with the Site, and information necessary to
             process your purchases. We may also collect additional information
@@ -51,56 +51,56 @@ const Policy = () => {
             list below for more information about what Personal Information we
             collect and why.
           </p>
-          <h3 className="my-8 text-gray-600">Device Information</h3>
+          <h3 className="my-8 ">Device Information</h3>
           <ul className="ml-8">
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Examples of Personal Information collected: version of web
               browser, IP address, time zone, cookie information, what sites or
               products you view, search terms, and how you interact with the
               Site.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Purpose of collection: to load the Site accurately for you, and to
               perform analytics on Site usage to optimize our Site.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Source of collection: Collected automatically when you access our
               Site using cookies, log files, web beacons, tags, or pixels.
             </li>
           </ul>
-          <h3 className="my-8 text-gray-600">Order Information</h3>
+          <h3 className="my-8 ">Order Information</h3>
           <ul className="ml-8">
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Examples of Personal Information collected: name, billing address,
               shipping address, payment information (including credit card
               numbers), email address, and phone number.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Purpose of collection: to fulfill your order, to communicate with
               you about your order, and for internal business purposes.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Source of collection: Collected from you.
             </li>
           </ul>
-          <h3 className="my-8 text-gray-600">Customer support Information</h3>
+          <h3 className="my-8 ">Customer support Information</h3>
           <ul className="ml-8">
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Examples of Personal Information collected: name, email address,
               phone number, and message.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Purpose of collection: to provide you with support and to
               communicate with you about your account.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               Source of collection: Collected from you.
             </li>
           </ul>
           <h1 className="text-center text-4xl my-10 font-semibold">
             Sharing Personal Information
           </h1>
-          <p className="text-gray-600">
+          <p>
             We share your Personal Information with third parties to help us use
             your Personal Information, as described above. We use Google
             Analytics to help us understand how our customers use the Site--you
@@ -112,19 +112,19 @@ const Policy = () => {
           <h2 className="text-2xl my-8 font-semibold">
             Behavioral Advertising
           </h2>
-          <p className="text-gray-600">
+          <p>
             As described above, we use your Personal Information to provide you
             with targeted advertisements or marketing communications we believe
             may be of interest to you. For example:
           </p>
           <ul className="ml-8 mt-8">
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               We use Google Analytics to help us understand how our customers
               use the Site. You can read more about how Google uses your
               Personal Information here:
               https://policies.google.com/privacy?hl=en.
             </li>
-            <li className="list-disc text-gray-600">
+            <li className="list-disc ">
               We share information about your use of the Site, your purchases,
               and your interaction with our ads on other websites with our
               advertising partners. We collect and share some of this
@@ -136,14 +136,14 @@ const Policy = () => {
           <h1 className="my-8 text-4xl font-semibold text-center">
             Using Personal Information
           </h1>
-          <p className="text-gray-600">
+          <p>
             We use your personal Information to provide our services to you,
             which includes: offering products for sale, processing payments,
             shipping and fulfillment of your order, and keeping you up to date
             on new products, services, and offers.
           </p>
           <h1 className="my-8 text-4xl font-semibold text-center">Cookies</h1>
-          <p className="text-gray-600">
+          <p>
             To enrich and perfect your online experience, goodlite.co.ke uses
             “Cookies”, similar technologies and services provided by others to
             display personalized content, appropriate advertising and store your

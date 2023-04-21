@@ -52,10 +52,10 @@ export default function Home({
                   <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
                     <div className="max-w-xl md:max-w-full text-center lg:text-left">
                       <div>
-                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                        <p className="text-2xl font-medium tracking-tighter sm:text-4xl text-[#123026]">
                           I am a short heading
                         </p>
-                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-[#123026]">
                           Use this paragraph to share information about your
                           company or products. Make it engaging and interesting,
                           and showcase your brand&apos;s personality. Thanks for
@@ -63,7 +63,7 @@ export default function Home({
                         </p>
                       </div>
                       <button
-                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        className="flex mx-auto mt-4 p-4 border-2 border-[#123026] hover:text-white hover:bg-[#123026] transition duration-300 ease-in-out"
                         onClick={() => router.push("/category/adidas")}
                       >
                         View More
@@ -73,32 +73,35 @@ export default function Home({
                           <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {adidasProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
-                                  <Image
-                                    src={product.coverImage}
-                                    alt="hero"
-                                    fill={true}
-                                    className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                                  />
-                                </div>
+                                <Link href={`/product/${product.productSlug}`}>
+                                  <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
+                                    <Image
+                                      src={product.coverImage}
+                                      alt="hero"
+                                      fill={true}
+                                      className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                    />
+                                  </div>
+                                </Link>
                                 <div className="text-left">
                                   <Link
-                                    className="w-fit border-a-expand text-base pt-2 pb-1"
+                                    className="w-fit border-a-expand text-base pt-2 pb-1 text-[#123026]"
                                     href={`/product/${product.productSlug}`}
                                   >
                                     {product.name}
                                   </Link>
                                   <div className="flex gap-4 mt-2">
                                     <h3
-                                      className={`text-gray-500 ${
-                                        product.discountId && "line-through"
+                                      className={`text-[#123026] ${
+                                        product.discountId &&
+                                        "line-through text-gray-500"
                                       }`}
                                     >
                                       Ksh {product.price}
                                     </h3>
                                     {product.discountId &&
                                       product?.discount?.discount !== null && (
-                                        <h3 className="text-gray-500">
+                                        <h3 className="text-[#123026]">
                                           Ksh {product?.discount?.discount}
                                         </h3>
                                       )}
@@ -118,6 +121,7 @@ export default function Home({
                         alt="hero"
                         fill={true}
                         className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                        priority={true}
                       />
                     </div>
                   </div>
@@ -134,16 +138,17 @@ export default function Home({
                         alt="hero"
                         fill={true}
                         className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                        priority={true}
                       />
                     </div>
                   </div>
                   <div className="gap-12 lg:inline-flex md:order-first">
                     <div className="max-w-xl md:max-w-full text-center lg:text-left">
                       <div>
-                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                        <p className="text-2xl font-medium tracking-tighter text-[#123026] sm:text-4xl">
                           I am a short heading
                         </p>
-                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-[#123026]">
                           Use this paragraph to share information about your
                           company or products. Make it engaging and interesting,
                           and showcase your brand&apos;s personality. Thanks for
@@ -151,7 +156,7 @@ export default function Home({
                         </p>
                       </div>
                       <button
-                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        className="flex mx-auto mt-4 p-4 border-2 border-[#123026] hover:text-white hover:bg-[#123026] transition duration-300 ease-in-out"
                         onClick={() => router.push("/category/nike")}
                       >
                         View More
@@ -161,32 +166,35 @@ export default function Home({
                           <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {nikeProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
-                                  <Image
-                                    src={product.coverImage}
-                                    alt="hero"
-                                    fill={true}
-                                    className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                                  />
-                                </div>
+                                <Link href={`/product/${product.productSlug}`}>
+                                  <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
+                                    <Image
+                                      src={product.coverImage}
+                                      alt="hero"
+                                      fill={true}
+                                      className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                    />
+                                  </div>
+                                </Link>
                                 <div className="text-left">
                                   <Link
-                                    className="w-fit border-a-expand text-base pt-2 pb-1"
+                                    className="w-fit border-a-expand text-base pt-2 pb-1 text-[#123026]"
                                     href={`/product/${product.productSlug}`}
                                   >
                                     {product.name}
                                   </Link>
                                   <div className="flex gap-4 mt-2">
                                     <h3
-                                      className={`text-gray-500 ${
-                                        product.discountId && "line-through"
+                                      className={`text-[#123026] ${
+                                        product.discountId &&
+                                        "line-through text-gray-500"
                                       }`}
                                     >
                                       Ksh {product.price}
                                     </h3>
                                     {product.discountId &&
                                       product?.discount?.discount !== null && (
-                                        <h3 className="text-gray-500">
+                                        <h3 className="text-[#123026]">
                                           Ksh {product?.discount?.discount}
                                         </h3>
                                       )}
@@ -208,10 +216,10 @@ export default function Home({
                   <div className="gap-12 lg:inline-flex md:order-last lg:order-first">
                     <div className="max-w-xl md:max-w-full text-center lg:text-left">
                       <div>
-                        <p className="text-2xl font-medium tracking-tighter text-black sm:text-4xl">
+                        <p className="text-2xl font-medium tracking-tighter text-[#123026] sm:text-4xl">
                           I am a short heading
                         </p>
-                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-gray-600">
+                        <p className="max-w-xl md:max-w-full mt-4 text-base tracking-tight text-[#123026]">
                           Use this paragraph to share information about your
                           company or products. Make it engaging and interesting,
                           and showcase your brand&apos;s personality. Thanks for
@@ -219,7 +227,7 @@ export default function Home({
                         </p>
                       </div>
                       <button
-                        className="flex mx-auto mt-4 p-4 border-2 border-black hover:text-white hover:bg-black"
+                        className="flex mx-auto mt-4 p-4 border-2 border-[#123026] hover:text-white hover:bg-[#123026] transition duration-300 ease-in-out"
                         onClick={() => router.push("/category/jordan")}
                       >
                         View More
@@ -229,32 +237,35 @@ export default function Home({
                           <div className="max-w-full flex gap-8 md:grid md:grid-cols-3 md:gap-8 lg:flex lg:overflow-x-scroll xl:overflow-hidden xl:grid-cols-3 xl:gap-8">
                             {jordanProducts.map((product) => (
                               <div className="cursor-pointer" key={product.id}>
-                                <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
-                                  <Image
-                                    src={product.coverImage}
-                                    alt="hero"
-                                    fill={true}
-                                    className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
-                                  />
-                                </div>
+                                <Link href={`/product/${product.productSlug}`}>
+                                  <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-48 lg:h-48 xl:w-44 xl:h-44 aspect-square overflow-hidden">
+                                    <Image
+                                      src={product.coverImage}
+                                      alt="hero"
+                                      fill={true}
+                                      className="w-full h-full object-cover object-center lg:hover:scale-125 transition duration-300 ease-in-out"
+                                    />
+                                  </div>
+                                </Link>
                                 <div className="text-left">
                                   <Link
-                                    className="w-fit border-a-expand text-base pt-2 pb-1"
+                                    className="w-fit border-a-expand text-base pt-2 pb-1 text-[#123026]"
                                     href={`/product/${product.productSlug}`}
                                   >
                                     {product.name}
                                   </Link>
                                   <div className="flex gap-4 mt-2">
                                     <h3
-                                      className={`text-gray-500 ${
-                                        product.discountId && "line-through"
+                                      className={`text-[#123026] ${
+                                        product.discountId &&
+                                        "line-through text-gray-500"
                                       }`}
                                     >
                                       Ksh {product.price}
                                     </h3>
                                     {product.discountId &&
                                       product?.discount?.discount !== null && (
-                                        <h3 className="text-gray-500">
+                                        <h3 className="text-[#123026]">
                                           Ksh {product?.discount?.discount}
                                         </h3>
                                       )}

@@ -1,10 +1,11 @@
 import {
-  Products as products,
-  OrderDetails,
-  OrderItems,
-  User,
-  Region,
   Discount,
+  ORDER_STATUS,
+  OrderItems,
+  PAYMENT_STATUS,
+  Region,
+  User,
+  Products as products
 } from "@prisma/client";
 
 export type Products = (products & {
@@ -82,7 +83,21 @@ export type resultBody = {
   };
 };
 
-export type Orders = (OrderDetails & {
+export type OrderDetailsType = {
+  id: string;
+  userId: string;
+  total: number;
+  paymentId: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+  regionId: number;
+  checkoutRequestID: string;
+  paymentStatus: PAYMENT_STATUS;
+  orderStatus: ORDER_STATUS;
+};
+
+export type Orders = (OrderDetailsType & {
   region: Region;
   user: User;
   orderItems: (OrderItems & {

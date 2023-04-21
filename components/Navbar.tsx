@@ -68,8 +68,10 @@ const Navbar: FC = () => {
   }, [setCart]);
 
   return (
-    <div className={`${montserrat.className} w-full mx-auto bg-white border-b`}>
-      <div className="flex justify-between items-center w-full p-5 bg-white lg:hidden">
+    <div
+      className={`${montserrat.className} w-full mx-auto bg-[#efefef] border-b`}
+    >
+      <div className="flex justify-between items-center w-full p-5 lg:hidden">
         <div className="flex gap-4 items-center">
           <div onClick={handleOpenMobileNav}>
             <FiMenu className="text-2xl cursor-pointer" />
@@ -79,7 +81,7 @@ const Navbar: FC = () => {
           </div>
         </div>
         <div>
-          <Link className="text-2xl font-semibold" href="/">
+          <Link className="text-2xl font-semibold text-[#123026]" href="/">
             GOODLITE
           </Link>
         </div>
@@ -90,20 +92,26 @@ const Navbar: FC = () => {
           </div>
         </div>
       </div>
-      <div className="hidden lg:flex w-full bg-white lg:items-center lg:justify-between lg:px-8 lg:py-5">
+      <div className="hidden lg:flex w-full bg-[#efefef] lg:items-center lg:justify-between lg:px-8 lg:py-5">
         <div className="">
-          <Link className="relative text-2xl font-semibold" href="/">
+          <Link
+            className="relative text-2xl font-semibold text-[#123026]"
+            href="/"
+          >
             GOODLITE
           </Link>
         </div>
         <div>
           <ul className="flex gap-6">
             <li>
-              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+              <Link
+                href="/"
+                className="lg:text-sm xl:text-lg border-a-expand text-[#123026]"
+              >
                 {path === "/" && (
                   <motion.span
                     layoutId="underline"
-                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-[#123026]"
                   />
                 )}
                 Home
@@ -112,22 +120,22 @@ const Navbar: FC = () => {
             <li className="relative inline-block group">
               <Link
                 href="/"
-                className="flex items-center lg:text-sm xl:text-lg border-a-expand"
+                className="flex items-center lg:text-sm xl:text-lg border-a-expand text-[#123026]"
               >
                 {path === "/categories" && (
                   <motion.span
                     layoutId="underline"
-                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-[#123026]"
                   />
                 )}
                 Categories
                 <HiChevronDown className="ml-1 text-lg" />
               </Link>
-              <ul className="absolute left-0 w-40 py-2 bg-slate-100 shadow-xl z-10 group-hover:block hidden">
+              <ul className="absolute left-0 w-40 py-2 bg-white shadow-xl z-10 group-hover:block hidden">
                 <li className="py-2">
                   <Link
                     href="/category/adidas"
-                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                    className="ml-4 py-1 text-[#123026] border-a-expand w-fit"
                   >
                     Adidas
                   </Link>
@@ -135,7 +143,7 @@ const Navbar: FC = () => {
                 <li className="py-2">
                   <Link
                     href="/category/nike"
-                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                    className="ml-4 py-1 text-[#123026] border-a-expand w-fit"
                   >
                     Nike
                   </Link>
@@ -143,7 +151,7 @@ const Navbar: FC = () => {
                 <li className="py-2">
                   <Link
                     href="/category/jordan"
-                    className="ml-4 py-1 text-gray-800 border-a-expand w-fit"
+                    className="ml-4 py-1 text-[#123026] border-a-expand w-fit"
                   >
                     Jordans
                   </Link>
@@ -153,23 +161,26 @@ const Navbar: FC = () => {
             <li>
               <Link
                 href="/products/all"
-                className="lg:text-sm xl:text-lg border-a-expand"
+                className="lg:text-sm xl:text-lg border-a-expand text-[#123026]"
               >
                 {path === "/products/all" && (
                   <motion.span
                     layoutId="underline"
-                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-[#123026]"
                   />
                 )}
                 Shop All
               </Link>
             </li>
             <li>
-              <Link href="/" className="lg:text-sm xl:text-lg border-a-expand">
+              <Link
+                href="/"
+                className="lg:text-sm xl:text-lg border-a-expand text-[#123026]"
+              >
                 {path === "/about" && (
                   <motion.span
                     layoutId="underline"
-                    className="absolute left-0 top-full block h-[2px] w-full bg-black"
+                    className="absolute left-0 top-full block h-[2px] w-full bg-[#123026]"
                   />
                 )}
                 About
@@ -178,7 +189,7 @@ const Navbar: FC = () => {
           </ul>
         </div>
         <div className="flex items-center lg:gap-2 xl:gap-4">
-          <div className="flex xl:gap-2 items-center border-2">
+          <div className="flex xl:gap-2 items-center border-2 bg-white">
             <input
               type="search"
               className="px-4 py-2 w-9/12 focus:border-0 outline-none"
