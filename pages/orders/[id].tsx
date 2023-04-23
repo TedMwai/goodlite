@@ -6,13 +6,7 @@ import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { OrderDetailsType } from "@/types/types";
 import { getSession } from "@auth0/nextjs-auth0";
-import {
-  Addresses,
-  Discount,
-  OrderItems,
-  Region,
-  User
-} from "@prisma/client";
+import { Addresses, Discount, OrderItems, Region, User } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import { GetServerSideProps } from "next";
 import { Montserrat } from "next/font/google";

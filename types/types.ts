@@ -111,3 +111,12 @@ export type Orders = (OrderDetailsType & {
     };
   })[];
 })[];
+
+export type mpesaQuery = {
+  ResponseCode: string;
+  ResponseDescription: string;
+  MerchantRequestID: string;
+  CheckoutRequestID: string;
+  ResultCode: number;
+  ResultDesc: string;
+}

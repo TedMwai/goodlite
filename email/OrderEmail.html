@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title></title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif !important;
+      }
+
+      .order-button {
+        background-color: #123026;
+        color: #fff !important;
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: 1.5rem;
+        font-weight: 500;
+        font-size: medium;
+        text-decoration: none;
+        margin: 0rem auto;
+      }
+    </style>
+  </head>
+  <body style="max-width: 35rem; margin: 0 auto">
+    <main style="padding: 0.5rem">
+      <table style="width: 100%">
+        <tr>
+          <td>
+            <a
+              href="http://localhost:3000"
+              style="text-decoration: none; color: black"
+            >
+              <h1>GOODLITE</h1>
+            </a>
+          </td>
+          <td style="text-align: right">
+            <table
+              style="border-collapse: collapse; width: 200px; margin: 0 auto"
+            >
+              <tr>
+                <td>
+                  <a href="http://localhost:3000">
+                    <img
+                      src="{{profileIcon}}"
+                      width="30px"
+                      height="30px"
+                      alt="Profile"
+                    />
+                  </a>
+                </td>
+                <td>
+                  <a href="http://localhost:3000">
+                    <img
+                      src="{{cartIcon}}"
+                      width="30px"
+                      height="30px"
+                      alt="Cart"
+                    />
+                  </a>
+                </td>
+                <td>
+                  <a href="http://localhost:3000">
+                    <img
+                      src="{{wishlistIcon}}"
+                      width="30px"
+                      height="30px"
+                      alt="Wishlist"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-top: 2rem">
+        <h1 style="font-size: xl-large; font-weight: 500; text-align: center">
+          Thank you for your order!
+        </h1>
+        <p style="margin-top: 1rem; text-align: center; font-weight: 400">
+          Your order is being processed. Here's some information on when to
+          expect your package and how to track it along the way.
+        </p>
+        <table style="width: 100%; margin-top: 2rem">
+          <tr>
+            <td
+              style="
+                background-color: #d6f6cb;
+                text-align: center;
+                padding: 1rem;
+              "
+            >
+              <img
+                src="{{checkmark}}"
+                width="30px"
+                height="30px"
+                alt="Checkmark"
+              />
+              <h3
+                style="
+                  font-weight: 400;
+                  font-size: small;
+                  padding: 0.5rem 0rem;
+                  margin: 0;
+                "
+              >
+                Ordered On
+              </h3>
+              <p style="font-size: small; margin: 0">{{orderDate}}</p>
+            </td>
+            <td
+              style="
+                background-color: #cbf2f6;
+                text-align: center;
+                padding: 1rem;
+              "
+            >
+              <img
+                src="{{checkmark}}"
+                width="30px"
+                height="30px"
+                alt="Checkmark"
+              />
+              <h3
+                style="
+                  font-weight: 400;
+                  font-size: small;
+                  padding: 0.5rem 0rem;
+                  margin: 0;
+                "
+              >
+                Expected Delivery
+              </h3>
+              <p style="font-size: small; margin: 0">{{deliveryDate}}</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div style="display: flex; justify-items: center; margin-top: 2rem">
+        <a href="http://localhost:3000" class="order-button"
+          >Track Your Order</a
+        >
+      </div>
+      <div style="margin-top: 2rem; text-align: center">
+        <h1 style="font-weight: 600; font-size: large">
+          ORDER # {{orderNumber}}
+        </h1>
+        <p style="font-size: medium">{{orderDate}}</p>
+      </div>
+      <div style="margin-top: 2rem; padding: 0.5rem 0rem">
+        <h1
+          style="
+            font-weight: 400;
+            font-size: medium;
+            border-bottom: 2px solid gray;
+            padding-bottom: 0.5rem;
+          "
+        >
+          ITEMS ORDERED
+        </h1>
+        <div>
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            style="width: 100%; border-collapse: collapse"
+          >
+            <tbody>
+              {{#each orderItems}}
+              <tr>
+                <td style="padding: 1rem 0; border-bottom: 2px solid gray">
+                  <table
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="width: 100%; border-collapse: collapse"
+                  >
+                    <tbody>
+                      <tr>
+                        <td style="padding-right: 1rem">
+                          <img
+                            src="{{this.image}}"
+                            width="100px"
+                            height="100px"
+                            alt="Product"
+                            style="display: block"
+                          />
+                        </td>
+                        <td style="vertical-align: top">
+                          <p
+                            style="
+                              font-size: medium;
+                              font-weight: 500;
+                              margin: 0;
+                            "
+                          >
+                            {{this.name}}
+                          </p>
+                          <p
+                            style="
+                              font-size: medium;
+                              font-weight: 500;
+                              margin: 0;
+                            "
+                          >
+                            {{this.price}}
+                          </p>
+                        </td>
+                        <td style="text-align: right; vertical-align: top">
+                          <p
+                            style="
+                              font-size: medium;
+                              font-weight: 500;
+                              margin: 0;
+                            "
+                          >
+                            {{this.quantity}}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            style="width: 100%; border-collapse: collapse"
+          >
+            <tr>
+              <td style="text-align: right; padding: 0.5rem 0">
+                <table
+                  cellpadding="0"
+                  cellspacing="0"
+                  style="width: 100%; border-collapse: collapse"
+                >
+                  <tr>
+                    <td style="text-align: right; padding-right: 2rem">
+                      <p style="font-size: medium; font-weight: 500; margin: 0">
+                        Subtotal
+                      </p>
+                      <p style="font-size: medium; font-weight: 500; margin: 0">
+                        Shipping
+                      </p>
+                      <p style="font-size: medium; font-weight: 500; margin: 0">
+                        Total
+                      </p>
+                    </td>
+                    <td style="text-align: right; white-space: nowrap">
+                      <p style="font-size: medium; font-weight: 500; margin: 0">
+                        Ksh {{subtotal}}.00
+                      </p>
+                      <p style="font-size: medium; font-weight: 500; margin: 0">
+                        Ksh {{shipping}}.00
+                      </p>
+                      <p style="font-size: medium; font-weight: 700; margin: 0">
+                        Ksh {{total}}.00
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div style="margin-top: 1rem; padding: 0.5rem 0rem">
+          <h1
+            style="
+              font-weight: 400;
+              font-size: medium;
+              border-bottom: 2px solid gray;
+              padding-bottom: 0.5rem;
+            "
+          >
+            SHIPPING ADDRESS
+          </h1>
+          <table style="width: 100%; border-collapse: collapse">
+            <tr>
+              <td
+                style="
+                  font-size: medium;
+                  font-weight: 500;
+                  padding-bottom: 0.5rem;
+                "
+              >
+                {{name}}
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  font-size: medium;
+                  font-weight: 500;
+                  padding-bottom: 0.5rem;
+                "
+              >
+                {{apartment}}
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  font-size: medium;
+                  font-weight: 500;
+                  padding-bottom: 0.5rem;
+                "
+              >
+                {{address}}
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  font-size: medium;
+                  font-weight: 500;
+                  padding-bottom: 0.5rem;
+                "
+              >
+                {{city}}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="display: flex; justify-items: center; margin-top: 1rem">
+          <a href="http://localhost:3000/orders" class="order-button"
+            >View Order</a
+          >
+        </div>
+        <!-- Footer to thank the client -->
+        <div style="margin-top: 2rem; text-align: center">
+          <h1 style="font-weight: 600; font-size: large">
+            Thank you for shopping with us!
+          </h1>
+          <p style="font-size: medium">
+            We hope you enjoy your purchase. If you have any questions, please
+            contact us.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
