@@ -75,6 +75,7 @@ export default async function handler(
         ? item.product.discount.discount * item.quantity
         : item.product.price * item.quantity;
     });
+    const subTotalSum = subTotal.reduce((a, b) => a + b, 0);
 
     // get the order date
     const orderDate = formatedDate(order.createdAt);
@@ -108,6 +109,15 @@ export default async function handler(
       Source: "actuallym33@gmail.com" /* required */,
       Template: "goodlite-order" /* required */,
       TemplateData: JSON.stringify({
+        baseUrl: process.env.CURRENT_BASE_URL,
+        profileIcon:
+          "https://res.cloudinary.com/dilzw0uzs/image/upload/v1682176145/Profile_gwfzlp.svg",
+        cartIcon:
+          "https://res.cloudinary.com/dilzw0uzs/image/upload/v1682176145/Cart_ejn3zl.svg",
+        wishlistIcon:
+          "https://res.cloudinary.com/dilzw0uzs/image/upload/v1682176145/wishlist_uyznkh.svg",
+        checkmark:
+          "https://res.cloudinary.com/dilzw0uzs/image/upload/v1682176167/icons8-checkmark_kgssku.svg",
         orderDate: orderDate,
         deliveryDate: deliveryDateString,
         orderNumber: order.id,
@@ -121,7 +131,7 @@ export default async function handler(
               : item.product.price,
           };
         }),
-        subtotal: subTotal,
+        subtotal: subTotalSum,
         shipping: order.region.amount,
         total: totalPaid,
         name: fullName,
@@ -144,6 +154,13 @@ export default async function handler(
       .catch((err: any) => {
         console.error(err, err.stack);
       });
+
+    // Delete the user's cart items
+    await prisma.cart.deleteMany({
+      where: {
+        userId: order.userId,
+      },
+    });
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ msg: "Something went wrong" });
