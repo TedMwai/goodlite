@@ -60,6 +60,7 @@ const Checkout = ({ regions, address }: Props) => {
         }),
       });
       const { checkoutRequestID, userID } = await res.json();
+      let intervalCleared = false;
       // periodically poll to check if payment was successful
       const interval = setInterval(async () => {
         try {
@@ -76,18 +77,50 @@ const Checkout = ({ regions, address }: Props) => {
             // clear cart
             setCart([]);
             clearInterval(interval);
+            intervalCleared = true;
             alert("Payment successful");
             user ? router.push("/orders") : router.push("/");
           } else if (msg === "Payment failed") {
             setModal(false);
             clearInterval(interval);
+            intervalCleared = true;
             alert("Payment failed");
           }
         } catch (error) {
+          alert("An error occurred. Please try again later");
           console.log(error);
           clearInterval(interval);
+          intervalCleared = true;
         }
       }, 5000);
+
+      setTimeout(async () => {
+        if (!intervalCleared) {
+          clearInterval(interval);
+          try {
+            const isPaid = await myFetch("/api/orders/queryOrder", {
+              method: "POST",
+              body: JSON.stringify({
+                checkoutRequestID,
+              }),
+            });
+            const { message } = await isPaid.json();
+            if (message === "Payment successful") {
+              setModal(false);
+              // clear cart
+              setCart([]);
+              alert("Payment successful");
+              user ? router.push("/orders") : router.push("/");
+            } else if (message === "Payment failed") {
+              setModal(false);
+              alert("Payment failed");
+            }
+          } catch (error) {
+            alert("An error occurred. Please try again later");
+            console.log(error);
+          }
+        }
+      }, 90000); // 1.5 minutes
     } catch (error: unknown) {
       console.log("Unable to initialise Lipa-na-Mpesa", error);
     }
