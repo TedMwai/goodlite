@@ -18,8 +18,6 @@ export default async function handler(
     };
     if (req.method !== "POST") return res.status(405).end("Method not allowed");
     const requestBody: resultBody = req.body;
-    const totalPaid =
-      requestBody.Body.stkCallback.CallbackMetadata.Item[0].Value;
     if (requestBody.Body.stkCallback.ResultCode !== 0) {
       await prisma.orderDetails.update({
         where: {
@@ -32,6 +30,8 @@ export default async function handler(
       });
       return res.status(200).json({ msg: "Payment failed" });
     }
+    const totalPaid =
+      requestBody.Body.stkCallback.CallbackMetadata.Item[0].Value;
     const order = await prisma.orderDetails.update({
       where: {
         checkoutRequestID: requestBody.Body.stkCallback.CheckoutRequestID,
