@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { accessToken, responseBody } from "@/types/types";
+import { accessToken, responseBody, Cart } from "@/types/types";
 import { ResponseError, myFetch } from "@/util/fetch";
 import base64 from "base-64";
 import { format } from "date-fns";
@@ -11,12 +11,71 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") return res.status(405).end("Method not allowed");
-  const { phone, total, regionId } = JSON.parse(req.body);
+
+  const { phone, regionId } = JSON.parse(req.body);
   const headers = `Basic ${base64.encode(
     process.env.MPESA_CONSUMER_KEY! + ":" + process.env.MPESA_CONSUMER_SECRET!
   )}`;
   const timeStamp = format(new Date(), "yyyyMMddhhmmss");
+
   try {
+    const user = await getUser(req, res);
+    const shippingAmount = await prisma.region.findUnique({
+      where: {
+        id: regionId,
+      },
+      select: {
+        amount: true,
+      },
+    });
+    let total = 0;
+    if (!user) {
+      const decodedCart = req.cookies.cart
+        ? decodeURIComponent(base64.decode(req.cookies.cart))
+        : null;
+
+      const cartData: Cart = decodedCart ? JSON.parse(decodedCart) : [];
+      if (cartData) {
+        const totalAmount = cartData.reduce((acc, item) => {
+          const discountedPrice = item.product.discount?.discount;
+          const price = item.product.price;
+          const quantity = item.quantity;
+          if (discountedPrice) {
+            return acc + discountedPrice * quantity;
+          }
+          return acc + price * quantity;
+        }, 0);
+
+        total = totalAmount + shippingAmount!.amount;
+      }
+    } else {
+      const cartItems = await prisma.cart.findMany({
+        where: {
+          userId: user.id,
+        },
+        select: {
+          product: {
+            include: {
+              discount: true,
+            },
+          },
+          quantity: true,
+        },
+      });
+
+      const totalAmount = cartItems.reduce((acc, item) => {
+        const discountedPrice = item.product.discount?.discount;
+        const price = item.product.price;
+        const quantity = item.quantity;
+        if (discountedPrice) {
+          return acc + discountedPrice * quantity;
+        }
+        return acc + price * quantity;
+      }, 0);
+
+      total = totalAmount + shippingAmount!.amount;
+    }
+    
     const response = await myFetch(
       "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       {
@@ -27,6 +86,7 @@ export default async function handler(
       }
     );
     const data: accessToken = await response.json();
+
     const body = {
       BusinessShortCode: 174379,
       Password: base64.encode(`174379${process.env.MPESA_PASSKEY}${timeStamp}`),
@@ -40,8 +100,8 @@ export default async function handler(
       AccountReference: "Goodlite",
       TransactionDesc: "Testing M-Pesa",
     };
+
     try {
-      const user = await getUser(req, res);
       const response2 = await myFetch(
         "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
         {
@@ -54,6 +114,7 @@ export default async function handler(
         }
       );
       const data2: responseBody = await response2.json();
+
       if (!user) {
         const newUser = await prisma.user.create({
           data: {
@@ -75,6 +136,7 @@ export default async function handler(
           checkoutRequestID: newOrder.checkoutRequestID,
         });
       }
+
       const newOrder = await prisma.orderDetails.create({
         data: {
           userId: user.id,
@@ -85,11 +147,13 @@ export default async function handler(
           phone: parseInt(phone),
         },
       });
+
       const cartItems = await prisma.cart.findMany({
         where: {
           userId: user.id,
         },
       });
+
       const orderItems = cartItems.map((item) => {
         return {
           orderId: newOrder.id,
@@ -97,9 +161,11 @@ export default async function handler(
           quantity: item.quantity,
         };
       });
+
       await prisma.orderItems.createMany({
         data: orderItems,
       });
+
       return res.status(200).json({
         userID: user.id,
         checkoutRequestID: newOrder.checkoutRequestID,
