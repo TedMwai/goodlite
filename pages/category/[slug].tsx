@@ -151,6 +151,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       products: JSON.parse(JSON.stringify(products)),
     },
+    revalidate: 60, // In seconds
   };
 };
 
