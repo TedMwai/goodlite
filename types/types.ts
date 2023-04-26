@@ -117,6 +117,6 @@ export type mpesaQuery = {
   ResponseDescription: string;
   MerchantRequestID: string;
   CheckoutRequestID: string;
-  ResultCode: number;
+  ResultCode: string;
   ResultDesc: string;
 }

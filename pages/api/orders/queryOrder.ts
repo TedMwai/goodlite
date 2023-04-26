@@ -53,7 +53,7 @@ export default async function handler(
       }
     );
     const data2: mpesaQuery = await response2.json();
-    if (data2.ResponseCode === "0") {
+    if (data2.ResultCode === "0") {
       const order = await prisma.orderDetails.update({
         where: {
           checkoutRequestID: checkoutRequestID,
@@ -88,7 +88,9 @@ export default async function handler(
           },
         },
       });
+
       res.status(200).json({ message: "Payment successful" });
+      
       const subTotal = order.orderItems.map((item) => {
         return item.product.discount
           ? item.product.discount.discount * item.quantity
@@ -191,7 +193,7 @@ export default async function handler(
           orderStatus: ORDER_STATUS.CANCELLED,
         },
       });
-      return res.status(500).json({ message: "Payment failed" });
+      return res.status(200).json({ message: "Payment failed" });
     }
   } catch (error: any) {
     res.status(500).json({ error: error.message });
