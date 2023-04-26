@@ -10,15 +10,14 @@ import { useShop } from "@/context/context";
 import prisma from "@/lib/prisma";
 import { myFetch } from "@/util/fetch";
 import { getSession } from "@auth0/nextjs-auth0";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import { Addresses, Region } from "@prisma/client";
 import base64 from "base-64";
 import { AnimatePresence } from "framer-motion";
 import { GetServerSideProps } from "next";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type Props = {
   regions: Region[];
@@ -37,25 +36,27 @@ const Checkout = ({ regions, address }: Props) => {
   const [regionSelected, setRegionSelected] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
-  const router = useRouter();
-  const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleCheckout = async (phone: string) => {
     // check if number is valid
     if (phone.length !== 10) {
-      return alert("Please enter a valid phone number");
+      return toast.error(
+        "Please enter a valid phone number. e.g 0712345678 or 254712345678"
+      );
     }
     // sanitize number
     const sanitizedNumber = `254${phone.slice(1)}`;
     // initialise payment
+    setIsLoading(true);
+    setIsSuccess(false);
     setModal(true);
     try {
-      const total = 1;
       const res = await myFetch("/api/checkout/payment", {
         method: "POST",
         body: JSON.stringify({
           phone: sanitizedNumber,
-          total,
           regionId: shippingRegionIndex,
         }),
       });
@@ -73,21 +74,20 @@ const Checkout = ({ regions, address }: Props) => {
           });
           const { msg } = await res.json();
           if (msg === "Payment successful") {
-            setModal(false);
+            setIsLoading(false);
+            setIsSuccess(true);
             // clear cart
             setCart([]);
             clearInterval(interval);
             intervalCleared = true;
-            alert("Payment successful");
-            user ? router.push("/orders") : router.push("/");
           } else if (msg === "Payment failed") {
-            setModal(false);
+            setIsLoading(false);
+            setIsSuccess(false);
             clearInterval(interval);
             intervalCleared = true;
-            alert("Payment failed");
           }
         } catch (error) {
-          alert("An error occurred. Please try again later");
+          toast.error("An error occurred. Please try again later");
           console.log(error);
           clearInterval(interval);
           intervalCleared = true;
@@ -106,14 +106,13 @@ const Checkout = ({ regions, address }: Props) => {
             });
             const { message } = await isPaid.json();
             if (message === "Payment successful") {
-              setModal(false);
+              setIsLoading(false);
+              setIsSuccess(true);
               // clear cart
               setCart([]);
-              alert("Payment successful");
-              user ? router.push("/orders") : router.push("/");
             } else if (message === "Payment failed") {
-              setModal(false);
-              alert("Payment failed");
+              setIsLoading(false);
+              setIsSuccess(false);
             }
           } catch (error) {
             alert("An error occurred. Please try again later");
@@ -139,8 +138,14 @@ const Checkout = ({ regions, address }: Props) => {
           {cartOpen && <Cart />}
           {sideNav && <MobileNav />}
           {searchOpen && <SearchComponent />}
+          {modal && (
+            <Modal
+              loading={isLoading}
+              success={isSuccess}
+              setModal={setModal}
+            />
+          )}
         </AnimatePresence>
-        <Modal open={modal} setOpen={setModal} />
         <section className="bg-white">
           <div className="px-5 py-12 mx-auto md:px-12 lg:px-16 max-w-7xl">
             <div className="lg:flex gap-8">
@@ -170,7 +175,11 @@ const Checkout = ({ regions, address }: Props) => {
                 {shipping && regionSelected && (
                   <div className="mt-8">
                     <h1 className="text-xl text-center font-medium">
-                      Enter phone number to receive M-PESA prompt
+                      Enter phone number to receive M-PESA prompt. <br></br>
+                      <span className="text-sm text-blue-600">
+                        {" "}
+                        Start with 254 eg 254712345678{" "}
+                      </span>
                     </h1>
                     <div className="relative mt-8">
                       <input
@@ -182,7 +191,7 @@ const Checkout = ({ regions, address }: Props) => {
                       <label
                         className={`absolute top-2 left-2 p-2 text-base text-gray-500 pointer-events-none bg-white transition-all duration-200 ease-out`}
                       >
-                        Phone Number *
+                        Phone Number * start with (254 or 0)
                       </label>
                     </div>
                     <div className="flex justify-center">

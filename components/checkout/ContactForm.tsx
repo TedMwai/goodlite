@@ -232,10 +232,6 @@ const ContactForm: FC<Props> = ({ setShipping, address }) => {
             <span className="text-red-500">Phone is required</span>
           )}
         </div>
-        <div className="mt-6 flex gap-8">
-          <input type="checkbox" />
-          <h3>Save this information for next time</h3>
-        </div>
         <button
           className="p-4 text-white bg-[#123026] mt-6 hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
           type="submit"

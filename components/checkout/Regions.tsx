@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useShop } from "@/context/context";
 import { v4 as uuidv4 } from "uuid";
 import { Region } from "@prisma/client";
 import { myFetch } from "@/util/fetch";
+import toast from "react-hot-toast";
 
 type Props = {
   regions: Region[];
@@ -17,11 +18,13 @@ const Regions: FC<Props> = ({ regions, setRegionSelected }) => {
     setSelectedRegionIndex,
     setShippingRegion,
   } = useShop();
+  const [selected, isSelected] = useState<boolean>(false);
 
   const handleDivClick = async (
     event: React.MouseEvent<HTMLDivElement>,
     index: number
   ) => {
+    isSelected(true);
     setSelectedRegionIndex(index);
     try {
       const response = await myFetch("/api/checkout/region", {
@@ -34,8 +37,15 @@ const Regions: FC<Props> = ({ regions, setRegionSelected }) => {
       setShippingRegion(data.shippingRegion);
       setShippingRegionIndex(regions[index].id);
     } catch (error: unknown) {
-      console.log("Unable to set shipping region", error);
+      toast.error(`Unable to set shipping region ${error}`);
     }
+  };
+
+  const handleClick = async () => {
+    if (!selected) {
+      return toast.error("Please select a shipping region");
+    }
+    setRegionSelected(true);
   };
 
   return (
@@ -69,7 +79,7 @@ const Regions: FC<Props> = ({ regions, setRegionSelected }) => {
       <button
         className="p-4 text-white bg-[#123026] mt-6 hover:bg-[#1e4f3f] transition duration-300 ease-in-out"
         type="button"
-        onClick={() => setRegionSelected(true)}
+        onClick={handleClick}
       >
         Continue to Payment
       </button>

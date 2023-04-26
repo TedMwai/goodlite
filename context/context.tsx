@@ -67,7 +67,7 @@ export const ContextProvider: React.FC<Props> = ({ children }: Props) => {
   const [sideNav, setSideNav] = useState<boolean>(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [cart, setCart] = useState<Cart>([]);
-  const [shippingPrice, setShippingPrice] = useState<number>(400);
+  const [shippingPrice, setShippingPrice] = useState<number>(0);
   const [selectedRegionIndex, setSelectedRegionIndex] = useState<number>(0);
   const [shippingRegion, setShippingRegion] = useState<string>("");
   const [shippingRegionIndex, setShippingRegionIndex] = useState<number>(1);
