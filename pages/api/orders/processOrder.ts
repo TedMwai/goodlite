@@ -69,7 +69,6 @@ export default async function handler(
         },
       },
     });
-    res.status(200).json({ msg: "Payment successful" });
     const subTotal = order.orderItems.map((item) => {
       return item.product.discount
         ? item.product.discount.discount * item.quantity
@@ -161,6 +160,7 @@ export default async function handler(
         userId: order.userId,
       },
     });
+    res.status(200).json({ msg: "Payment successful" });
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ msg: "Something went wrong" });
