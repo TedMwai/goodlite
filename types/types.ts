@@ -71,6 +71,9 @@ export type resultBody = {
           },
           {
             Name: string;
+          },
+          {
+            Name: string;
             Value: number;
           },
           {

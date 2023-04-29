@@ -41,7 +41,7 @@ export default async function handler(
         paymentId: requestBody.Body.stkCallback.CallbackMetadata.Item[1].Value,
         paymentStatus: PAYMENT_STATUS.SUCCESS,
         orderStatus: ORDER_STATUS.PROCESSING,
-        phone: requestBody.Body.stkCallback.CallbackMetadata.Item[3].Value,
+        phone: requestBody.Body.stkCallback.CallbackMetadata.Item[4].Value,
       },
       include: {
         user: {
